@@ -32,13 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<br><br>
 			<input type="submit" value="登录">
     	</form>
-    	<%
-    		//获取后台设置的登录信息
-    		String msg = (String)request.getAttribute("loginMsg");
-    		if(msg != null){
-    			out.print(msg);
-    		}
-    	%>
+    	${loginMsg}
     </div>
   </body>
 </html>

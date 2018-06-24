@@ -36,4 +36,11 @@
 		</property>
 	</bean>
 	<!-- 支持返回json -->
+	
+	<!-- 视图定位 -->
+	<bean id="viewResolver"  
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+        <property name="prefix" value="/WEB-INF/jsp/" />  
+        <property name="suffix" value=".jsp" />  
+    </bean>  
 </beans>
