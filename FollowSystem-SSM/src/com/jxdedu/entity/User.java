@@ -4,21 +4,21 @@ import java.util.Date;
 
 /**
  * 实体类,用户
- * @ClassName User
+
  * @author 陈希展 
  * @date 2018年6月19日
  */
 public class User {
-    private int userId; //  用户id, 主键
-    private String userName;   //   登录名
-    private String pwd;    //   登录密码
-    private String telephone;  //   固定电话号码
-    private String phone;  //   手机号码
-    private String email;  //   电子邮箱
-    private String note;   //   备注
-    private String flag;   //   标识, 用户是否激活
-    private Date loginTime;  // 登录时间
-    private int deptno; //  用户所在部门的部门ID, 外键
+    private int userId;			 //  用户id, 主键
+    private String userName;  	 //   登录名
+    private String pwd;   		 //   登录密码
+    private String telephone; 	 //   固定电话号码
+    private String phone;  		 //   手机号码
+    private String email;  		 //   电子邮箱
+    private String note;   		 //   备注
+    private String flag;   		 //   标识, 用户是否激活
+    private Date loginTime;  	 // 登录时间
+    private int deptno; 		 //  用户所在部门的部门ID, 外键
     /**
      * @return the userId
      */
