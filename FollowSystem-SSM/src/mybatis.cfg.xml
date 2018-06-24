@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- 在控制台打印mybaits底层执行的SQL -->
+	<settings>
+		<setting name="logImpl" value="STDOUT_lOGGING"></setting>
+	</settings>
+	<!-- 给实体类起别名，让mybatis扫描实体类所在包,之后在映射文件里只写实体类名 -->
+	<typeAliases>
+		<package name="com.jxdedu.entity"></package>
+	</typeAliases>
+	
+</configuration>
