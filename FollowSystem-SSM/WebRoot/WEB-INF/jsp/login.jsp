@@ -49,6 +49,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     #logo-container img{
       height:90px;
     }
+    #msg{
+      color: red;
+      margin-left: 2em;
+    }
 
   </style>
   <script type="text/javascript">
@@ -122,12 +126,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <div class="checkbox">
                     <label>
                       <input type="checkbox" name="remember">记住我
+                      <span class="form-control-static" id="msg">${loginMsg}</span>
                     </label>
+
                   </div>
 
                 </div>
                 <div class="form-group has-feedback">
                     <button type="submit" class="btn btn-primary btn-block">登录</button>
+
                 </div>
             </form>
         </div>
@@ -138,7 +145,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 
   </div>
-
-
 </body>
 </html>
