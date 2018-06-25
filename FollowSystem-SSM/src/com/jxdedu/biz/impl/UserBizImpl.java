@@ -1,3 +1,4 @@
+
 package com.jxdedu.biz.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ public class UserBizImpl implements UserBiz {
     
     @Override
     public boolean isValid(String loginName, String loginPassword) {
-
+        // 如果登录名或登录密码为 null, 登录失败
+        if (loginName == null || loginPassword == null) return false;
+        
         // 将登录信息封装
         User loginUser = new User();
         loginUser.setPwd(loginPassword);
@@ -28,3 +31,4 @@ public class UserBizImpl implements UserBiz {
     }
 
 }
+
