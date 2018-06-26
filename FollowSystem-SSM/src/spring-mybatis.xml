@@ -22,7 +22,7 @@
 		<property name="maxPoolSize" value="5" />
 		<property name="minPoolSize" value="3" />
 		<!-- 默认为0，单位为秒，表示在连接池中未被使用的、超出miniPoolSize的那些连接最长存活多久不被移除。 -->
-		<property name="maxIdleTimeExcessConnections" value="60" />
+		<property name="maxIdleTimeExcessConnections" value="300" />
 	</bean>
 
 	<!-- spring和MyBatis完美整合-->
