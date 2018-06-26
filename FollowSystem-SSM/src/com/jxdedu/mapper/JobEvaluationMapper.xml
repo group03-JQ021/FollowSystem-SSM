@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD 
+
+ Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd 
+
+">
+<mapper namespace="com.jxdedu.dao.JobEvaluationDao">
+
+ <resultMap type="JobEvaluation" id="JobEvaluations">
+  	<result property="dateId" column="dateid"/>
+  	<result property="optionId" column="optionid"/>
+  	<result property="stuId" column="stuid"/>
+	<result property="evaluatePerson" column="evaluateperson"/>
+	<result property="evaluateScore" column="evaluatescore"/>
+	<result property="totalScore" column="totalscore"/>
+	<result property="jobEvaluateContent" column="jobevaluatecontent"/>
+	<association property="EvaluateDate" javaType="EvaluateDate">
+	<result property="dateName" column="datename"/>
+	</association>
+		<association property="JobEvaluateOption" javaType="JobEvaluateOption">
+		<result property="optionName" column="optionname"/>
+		<result property="optionState" column="optionstate"/>
+	</association>
+ </resultMap>
+<insert id="addJobEvaluation" parameterType="JobEvaluation">
+	insert into JobEvaluation(evaluatePerson,evaluateScore,totalScore,jobEvaluateContent) 
+	values(#{evaluatePerson},#{evaluateScore},#{totalScore},#{jobEvaluateContent})
+	 where JobEvaluation.optionid=JobEvaluateOption.optionid
+</insert>
+<select id="showJobEvaluations" resultType="JobEvaluation" resultMap="JobEvaluations">
+select dateId,evaluateScore from JobEvaluation where
+stuId='${value}' order by dateId
+</select>
+<select id="getJobEvaluation" resultType="JobEvaluation">
+select dateId,evaluatePerson,jobEvaluateContent,totalScore from JobEvaluation where stuId='${value}' 
+group by dateId,evaluatePerson,jobEvaluateContent,totalScore order by dateId
+</select>
+<select id="getAllJobEvaluation" resultType="JobEvaluation">
+select max(dateId)as maxId,totalScore,dateId,stuId from JobEvaluation group by totalScore,dateId,stuId order by dateId
+</select>
+</mapper>

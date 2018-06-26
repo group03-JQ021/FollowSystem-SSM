@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD 
+
+ Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd 
+
+">
+<!-- 
+	1.映射文件的namespace的值对应我们程序的dao接口
+	此映射文件将代替我们dao接口的实现类
+	可以吧一个映射文件看成一个dao接口的实现类
+	2.mybatis会自动帮我们把dao接口中的方法与映射文件中的标签做绑定
+	3.在映射文件中
+		可以写select查询标签
+		insert 插入标签
+		update 更新标签
+		delete 删除标签
+ -->
+<mapper namespace="com.jxdedu.dao.StudentDao">
+<!-- 根据kids的kno来查询kids的记录 -->
+<!-- 
+	1每一个标签对应一个dao接口的方法，通过id来绑定
+	标签的id属性值是方法名字，唯一不重复
+	2parameterType代表方法执行时需要的参数类型，映射文件会根据这个参数把值放到占位符中
+	 	为可选参数， mybatis会自动根据实参的类型，来绑定相应的数据类型
+	 	可以是简单类型，可以是对象类型
+	3#{}相当于我们的sql的占位符，一个#{}代表一个问号，可以设置一个值
+	4 resultType代表方法的返回值类型，
+		即这条sql执行完以后会返回什么值，
+ -->
+ 
+ 
+ <resultMap type="Student" id="StudentManageList">
+	 <id property="stuId" column="stuid"/>
+	 <result property="stuName" column="stuname"/>
+	 <result property="sex" column="sex"/>
+	 <result property="university" column="university"/>
+	 <result property="birthPlace" column="birthplace"/>
+	 <association property="SchoolEvaluation" javaType="SchoolEvaluation" column="stuid">
+	  <result property="evaluateScore" column="evaluatescore"/>
+	 </association>
+	 <association property="dept" javaType="dept">
+	 <result property="deptName" column="deptname"></result>
+	 </association>
+	 <collection property="JobEvaluation" resultMap="JobEvaluations" column="stuid"/> 
+	 <collection property="score" resultMap="scores" column="stuid"/>
+ </resultMap>
+ 
+ <resultMap type="Score" id="scores">
+	 <result property="courseId" column="courseid"/>
+	 <result property="score" column="score"/>
+	 <association property="course" javaType="Course">
+	 	<result property="courseName" column="coursename"/>
+	 	<result property="courseState" column="coursestate"/>
+	 </association>
+ </resultMap>
+ <resultMap type="JobEvaluation" id="JobEvaluations">
+  	<result property="dateId" column="dateid"/>
+  	<result property="optionId" column="optionid"/>
+	<result property="totalScore" column="totalScore"/>
+	<result property="evaluatePerson" column="evaluateperson"/>
+	<result property="evaluateScore" column="evaluatescore"/>
+	<result property="jobEvaluateContent" column="jobevaluatecontent"/>
+	<association property="EvaluateDate" javaType="EvaluateDate">
+	<id property="dateId" column="dateid"/>
+	<result property="dateName" column="datename"/>
+	</association>
+		<collection property="JobEvaluateOption" javaType="JobEvaluateOption">
+		<result property="optionName" column="optionname"/>
+		<result property="optionState" column="optionstate"/>
+	</collection>
+ </resultMap>
+<!-- <select id="getAllStudent" resultType="Student" resultMap="StudentManageList"> -->
+<select id="getAllStudent" resultType="Student" resultMap="StudentManageList">
+	 select student.stuid,student.stuname,student.sex,student.university,student.birthplace,SchoolEvaluation.evaluatescore
+	from student,SchoolEvaluation
+	where student.stuid=SchoolEvaluation.stuid 
+</select>
+<select id="getOneStudentByName" resultType="Student" resultMap="StudentManageList">
+select student.stuname,student.sex,student.university,student.birthplace,course.coursename,course.coursestate,score.score,
+	SchoolEvaluation.evaluatescore,JobEvaluation.evaluatescore,JobEvaluation.totalscore, EvaluateDate.datename  
+from student,course,score,SchoolEvaluation,JobEvaluation,EvaluateDate
+where student.stuid=score.stuid and score.courseid=course.courseid and 
+student.stuid=SchoolEvaluation.stuid and student.stuid=JobEvaluation.stuid and
+ JobEvaluation.dateid=EvaluateDate.dateid and student.stuname like '%${value}%'
+</select>
+<select id="getRowNum" resultType="integer" resultMap="StudentManageList">
+select count(*) from 
+(select student.stuname,student.sex,student.university,student.birthplace,course.coursename,course.coursestate,score.score,
+SchoolEvaluation.evaluatescore,JobEvaluation.evaluatescore,JobEvaluation.totalscore, EvaluateDate.datename  
+from student,course,score,SchoolEvaluation,JobEvaluation,EvaluateDate
+where student.stuid=score.stuid and score.courseid=course.courseid and 
+student.stuid=SchoolEvaluation.stuid and student.stuid=JobEvaluation.stuid and JobEvaluation.dateid=EvaluateDate.dateid)
+</select>
+<select id="getSubStudents" resultType="Student" resultMap="StudentManageList">
+select  student.stuname,student.sex,student.university,student.birthplace,course.coursename,course.coursestate,score.score,
+SchoolEvaluation.evaluatescore,JobEvaluation.evaluatescore,JobEvaluation.totalscore, EvaluateDate.datename from
+ (select student.stuname,student.sex,student.university,student.birthplace,course.courename,course.coursestate,score.score,
+SchoolEvaluation.evaluatescore,JobEvaluation.totalscore, EvaluateDate.datename  
+from student,course,score,SchoolEvaluation,JobEvaluation,EvaluateDate
+where student.stuid=score.stuid and score.courseid=course.courseid and 
+student.stuid=SchoolEvaluation.stuid and student.stuid=JobEvaluation.stuid and 
+JobEvaluation.dateid=EvaluateDate.dateidand student.rownum &lt;=#{1})t where r &gt;=#{0}
+</select>
+<select id="showStudent" resultType="Student" resultMap="StudentManageList">
+select student.stuid,dept.deptname,JobEvaluation.evaluateperson,
+JobEvaluation.totalscore,JobEvaluation.jobevaluatecontent,EvaluateDate.datename 
+from Dept,JobEvaluation,JobEvaluateOption,student,EvaluateDate where student.deptid=dept.deptid and student.stuid=JobEvaluation.stuid and 
+JobEvaluation.optionid=JobEvaluateOption.optionid and
+ EvaluateDate.dateid=JobEvaluation.dateid and student.stuid='${value}'
+</select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD 
+
+ Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd 
+
+">
+<!-- 
+	1.映射文件的namespace的值对应我们程序的dao接口
+	此映射文件将代替我们dao接口的实现类
+	可以吧一个映射文件看成一个dao接口的实现类
+	2.mybatis会自动帮我们把dao接口中的方法与映射文件中的标签做绑定
+	3.在映射文件中
+		可以写select查询标签
+		insert 插入标签
+		update 更新标签
+		delete 删除标签
+ -->
+<mapper namespace="com.jxdedu.dao.DeptDao">
+<!-- 根据kids的kno来查询kids的记录 -->
+<!-- 
+	1每一个标签对应一个dao接口的方法，通过id来绑定
+	标签的id属性值是方法名字，唯一不重复
+	2parameterType代表方法执行时需要的参数类型，映射文件会根据这个参数把值放到占位符中
+	 	为可选参数， mybatis会自动根据实参的类型，来绑定相应的数据类型
+	 	可以是简单类型，可以是对象类型
+	3#{}相当于我们的sql的占位符，一个#{}代表一个问号，可以设置一个值
+	4 resultType代表方法的返回值类型，
+		即这条sql执行完以后会返回什么值，
+ -->
+ <select id="getAllDept" resultType="Dept">
+select deptName from Dept,student where dept.deptid=student.deptid and student.stuid=1
+ </select>
+ </mapper>

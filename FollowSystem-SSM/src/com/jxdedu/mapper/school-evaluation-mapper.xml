@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jxdedu.dao.SchoolEvaluationDao">
+<!-- SchooolEvaluation 表的字段
+名称                  		是否为空? 	类型
+EVALUATEID          NOT NULL    NUMBER(7)
+STUID                           NUMBER(7)
+EVALUATEPERSON                  VARCHAR2(20)
+EVALUATESCORE                   NUMBER(4,2)
+EVALUATECONTENT                 VARCHAR2(200)
+ -->
+ 	
+ 	<!-- 查询; 获取所有记录 -->
+	<select id="getAllSchoolEvaluation" resultType="SchoolEvaluation">
+		select * from SchoolEvaluation
+	</select>
+	<!-- 添加一条新的评价信息 -->
+ 	<insert id="addSchoolEvaluation">
+ 		insert into SchoolEvaluation(evaluateID, stuID, evaluatePerson, evaluateScore, evaluateContent)
+ 		values(seq_school_evaluation.nextval, #{stuId}, #{evaluatePerson}, 
+ 			#{evaluateScore}, #{evaluateContent})
+ 	</insert>
+ 
+	<!-- 更新语句,按照给定的 evaluateID ,更新其余字段-->
+	<update id="updateSchoolEvaluation" parameterType="SchoolEvaluation">
+		update SchoolEvaluation 
+		set evaluateID=#{evaluateId}, stuID=#{stuId}, evaluatePerson=#{evaluatePerson},
+			evaluateScore=#{evaluateScore}, evaluateContent=#{evaluateContent}
+		where evaluateID = #{evaluateId}
+	</update>
+	
+	
+	<select id="getSchoolEvaluationByID" resultType="SchoolEvaluation">
+		select * 
+		from schoolEvaluation
+		where evaluateID=#{evaluateId}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*)
+		from schoolEvaluation
+	</select>
+</mapper>
