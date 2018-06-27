@@ -2,15 +2,40 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!--
+ USERID
+ USERNAME
+ PWD
+ TELEPHONE
+ PHONE
+ EMAIL
+ NOTE
+ FLAG
+ LOGINTIME
+ DEPTNO 
+ -->
 <mapper namespace="com.jxdedu.dao.UserDao">
  	
- 
  	<!-- 查询; 获取所有记录 -->
 	<select id="getUserByNameAndPassword" resultType="User">
 		select * 
 		from users
 		where username=#{userName} and pwd=#{pwd}
 	</select>
+	
+	<!--============= 分页查询相关方法 ====================-->
+	<!--  -->
+	<select id="getTotalCount" resultType="int"> select count(*) from users	</select>
+	<select id="getByRange" resultType="User">
+		with t1 as (select * from users order by userid), -- 第一步,按 userid 升序排序
+			 t2 as (select t1.*, rownum r				  -- 第二步,按上边界过滤(不包括上边界)
+					from t1			
+					where rownum &lt; #{upperBound})
+		select * 	
+		from t2
+		where r &gt;= #{lowerBound}						  -- 最后一步,按下边界过滤(包括下边界)			
+	</select>
+	<!-- end/分页查询相关方法 -->
+	
 	
 </mapper>
