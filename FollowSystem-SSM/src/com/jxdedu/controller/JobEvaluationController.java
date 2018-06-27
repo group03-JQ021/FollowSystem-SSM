@@ -16,9 +16,9 @@ import com.jxdedu.entity.Dept;
 import com.jxdedu.entity.EvaluateDate;
 import com.jxdedu.entity.JobEvaluateOption;
 import com.jxdedu.entity.JobEvaluation;
-import com.jxdedu.entity.Student;
 
 @Controller
+
 public class JobEvaluationController {
 	@Resource(name="je")
 	private JobEvaluationBiz biz;
@@ -43,9 +43,8 @@ public class JobEvaluationController {
 		return "JobEvaluation";
 	}
 	@RequestMapping("/addJobEvaluation")
-		public String addJobEvaluation(JobEvaluation evaluation, Student stuid, JobEvaluateOption optionid,
-			EvaluateDate dateid,Model model){
-		if(biz.addJobEvaluation(evaluation, stuid, optionid, dateid)){
+		public String addJobEvaluation(List<JobEvaluation> evaluation, Model model){
+		if(biz.addJobEvaluation((List<JobEvaluation>) evaluation)){
 			model.addAttribute("addMsg", "添加成功");
 		}else{
 			model.addAttribute("addMsg", "添加失败");

@@ -28,6 +28,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<div align="center" style="margin-top:50px">
+<c:forEach var="d" items="${date }">
+<c:if test="${d.dateId==param.dateid }">
+<h2>${d.dateName}</h2>
+</c:if>
+</c:forEach>
+<form action="addJobEvaluation.do">
+<table>
+<tr><td> 评价人：</td><td><input name="optionname"><p></td></tr>
+ <c:forEach var="l" items="${option}">
+ <tr><td>${l.optionName }:</td><td><input name="evaluateScore"><p></td></tr>
+ </c:forEach>
+ <tr><td>整体评分分数：</td><td><input name="totalScore"><p></td></tr>
+ <tr> <td>评价(包括主要优点及缺陷):</td><td><textarea rows="2" cols="22" name="jobEvaluateContent">
+ </textarea><p></td></tr>
+ <tr>
+ 	<td colspan="2" align="center">
+ 		<input type="submit" value="提交">
+  		<input type="button" value="取消" onclick="javascript:location.href='studentManage.do'">
+  	</td>
+  </tr>
+  </table>
+</form>
+</div>
 </body>
 </html>

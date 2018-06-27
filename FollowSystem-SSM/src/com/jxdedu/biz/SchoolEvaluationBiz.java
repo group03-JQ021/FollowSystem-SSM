@@ -1,6 +1,7 @@
-package com.jxdedu.dao;
+package com.jxdedu.biz;
 
 import java.util.List;
+
 
 import com.jxdedu.entity.SchoolEvaluation;
 
@@ -10,7 +11,7 @@ import com.jxdedu.entity.SchoolEvaluation;
  * @author 陈希展 
  * @date 2018年6月14日
  */
-public interface SchoolEvaluationDao {
+public interface SchoolEvaluationBiz {
     /**
      * 添加一条评价记录
      * @param evaluation    评价信息
@@ -31,8 +32,7 @@ public interface SchoolEvaluationDao {
      * 当查询失败时,返回null.
      * @return  包含了所有评价信息的映射集合. 或者 null 如果查询失败; 
      */
-
-    List<SchoolEvaluation>  getAllSchoolEvaluation();
+    List<SchoolEvaluation> getAllSchoolEvaluation();
     /**
      * 查找具有给定ID的评价信息
      * @param evaluation    封装了ID的评价信息对象
@@ -47,3 +47,4 @@ public interface SchoolEvaluationDao {
     
     
 }
+

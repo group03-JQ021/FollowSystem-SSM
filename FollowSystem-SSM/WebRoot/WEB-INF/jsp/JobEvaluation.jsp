@@ -48,6 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td rowspan="2">整体评价分数</td>
 					</tr>
 					<tr>
+					<%--具体的评分分项 --%>
 						<c:forEach var="j" items="${requestScope.option}">						
 								<td>${j.optionName}</td>
 						</c:forEach>
@@ -57,45 +58,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:forEach var="dept" items="${requestScope.dept }">
 						<td>${dept.deptName }</td>
 						</c:forEach>
+						<%--评价人 --%>
+						<c:set var="l" value="true"></c:set>
 						<c:forEach var="s" items="${requestScope.list1}">
 						<c:if test="${s.dateId==i.dateId }">			
 									<td>${s.evaluatePerson }</td>
-						</c:if>	
-					<c:if test="${s.dateId!=i.dateId }">
-					<c:if test="${empty s.evaluatePerson }">
-					<td></td>
-					</c:if>									
-					</c:if>
+									<c:set var="l" value="false"></c:set>
+						</c:if>									
 						</c:forEach>
+						<c:if test="${l }">
+						<td></td>
+						</c:if>
+						<%--评分分项对应的得分 --%>
+						<c:set var="li" value="true"></c:set>
 						<c:forEach var="j" items="${requestScope.list}"  >
 							<c:if test="${j.dateId==i.dateId}">
 										<td>${j.evaluateScore}</td>
-							</c:if>
-							<c:if test="${j.dateId!=i.dateId}">
-							<c:if test="${j.evaluateScore==0.0}">
-							<td></td>
-							</c:if>
+										<c:set var="li" value="false"></c:set>
 							</c:if>
 							</c:forEach>
+							<c:if test="${li }">
+							<c:forEach begin="1" end="6">
+						<td></td>
+						</c:forEach>
+						</c:if>
+						<%--总分数 --%>
+						<c:set var="lis" value="true"></c:set>
 						<c:forEach var="k" items="${requestScope.list1}" >
 						<c:if test="${k.dateId==i.dateId }">
 									<td>${k.totalScore }</td>
+									<c:set var="lis" value="false"></c:set>
 								</c:if>	
-					<c:if test="${i.dateId>status.count }">
-					<td></td>									
-					</c:if>
 								</c:forEach>
+									<c:if test="${lis }">
+						<td></td>
+						</c:if>
 					</tr>
 					<tr>
+					<c:set var="list" value="true"></c:set>
 					<c:forEach var="k" items="${requestScope.list1}" >			
 						<c:if test="${k.dateId==i.dateId }">
 								<td>评价（包括主要优点及缺陷）</td>							
 								<td colspan="9" align="center">${k.jobEvaluateContent}</td>
+								<c:set var="list" value="false"></c:set>
 							</c:if>	
-							<c:if test="${i.dateId>status.count }">
+						
+								</c:forEach>
+								<c:if test="${list }">
+								<td>评价（包括主要优点及缺陷）</td>
 							<td colspan="9" align="center"></td>									
 					</c:if>
-								</c:forEach>
 					</tr>
 						</c:forEach>		
 				

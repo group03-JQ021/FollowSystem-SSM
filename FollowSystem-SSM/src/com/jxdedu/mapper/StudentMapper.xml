@@ -73,9 +73,8 @@ PUBLIC "-//mybatis.org//DTD
  </resultMap>
 <!-- <select id="getAllStudent" resultType="Student" resultMap="StudentManageList"> -->
 <select id="getAllStudent" resultType="Student" resultMap="StudentManageList">
-	 select student.stuid,student.stuname,student.sex,student.university,student.birthplace,SchoolEvaluation.evaluatescore
-	from student,SchoolEvaluation
-	where student.stuid=SchoolEvaluation.stuid 
+	 select stuId,stuName,sex,student.university,birthplace
+	from student
 </select>
 <select id="getOneStudentByName" resultType="Student" resultMap="StudentManageList">
 select student.stuname,student.sex,student.university,student.birthplace,course.coursename,course.coursestate,score.score,
@@ -85,23 +84,13 @@ where student.stuid=score.stuid and score.courseid=course.courseid and
 student.stuid=SchoolEvaluation.stuid and student.stuid=JobEvaluation.stuid and
  JobEvaluation.dateid=EvaluateDate.dateid and student.stuname like '%${value}%'
 </select>
-<select id="getRowNum" resultType="integer" resultMap="StudentManageList">
-select count(*) from 
-(select student.stuname,student.sex,student.university,student.birthplace,course.coursename,course.coursestate,score.score,
-SchoolEvaluation.evaluatescore,JobEvaluation.evaluatescore,JobEvaluation.totalscore, EvaluateDate.datename  
-from student,course,score,SchoolEvaluation,JobEvaluation,EvaluateDate
-where student.stuid=score.stuid and score.courseid=course.courseid and 
-student.stuid=SchoolEvaluation.stuid and student.stuid=JobEvaluation.stuid and JobEvaluation.dateid=EvaluateDate.dateid)
+<select id="getRowNum" resultType="integer" >
+select count(*) from student
 </select>
-<select id="getSubStudents" resultType="Student" resultMap="StudentManageList">
-select  student.stuname,student.sex,student.university,student.birthplace,course.coursename,course.coursestate,score.score,
-SchoolEvaluation.evaluatescore,JobEvaluation.evaluatescore,JobEvaluation.totalscore, EvaluateDate.datename from
- (select student.stuname,student.sex,student.university,student.birthplace,course.courename,course.coursestate,score.score,
-SchoolEvaluation.evaluatescore,JobEvaluation.totalscore, EvaluateDate.datename  
-from student,course,score,SchoolEvaluation,JobEvaluation,EvaluateDate
-where student.stuid=score.stuid and score.courseid=course.courseid and 
-student.stuid=SchoolEvaluation.stuid and student.stuid=JobEvaluation.stuid and 
-JobEvaluation.dateid=EvaluateDate.dateidand student.rownum &lt;=#{1})t where r &gt;=#{0}
+<select id="getSubStudent" resultType="Student">
+select stuId,stuName,sex,student.university,birthplace
+	from (select rownum r,stuId,stuName,sex,student.university,birthplace
+	from student Rownum &lt;=#{1})t where r &gt;=#{0}
 </select>
 <select id="showStudent" resultType="Student" resultMap="StudentManageList">
 select student.stuid,dept.deptname,JobEvaluation.evaluateperson,

@@ -13,6 +13,7 @@ import com.jxdedu.biz.UserBiz;
 
 @Controller
 @SessionAttributes({"username"}) 
+
 public class UserController {
     
     Logger logger = Logger.getLogger(UserController.class.getName()); 

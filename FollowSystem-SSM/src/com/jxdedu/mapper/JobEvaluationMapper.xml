@@ -25,9 +25,8 @@ PUBLIC "-//mybatis.org//DTD
 	</association>
  </resultMap>
 <insert id="addJobEvaluation" parameterType="JobEvaluation">
-	insert into JobEvaluation(evaluatePerson,evaluateScore,totalScore,jobEvaluateContent) 
-	values(#{evaluatePerson},#{evaluateScore},#{totalScore},#{jobEvaluateContent})
-	 where JobEvaluation.optionid=JobEvaluateOption.optionid
+	insert into JobEvaluation
+	values(#{dateId},#{stuId},#{optionId},#{evaluatePerson},#{evaluateScore},#{totalScore},#{jobEvaluateContent})
 </insert>
 <select id="showJobEvaluations" resultType="JobEvaluation" resultMap="JobEvaluations">
 select dateId,evaluateScore from JobEvaluation where
@@ -38,6 +37,6 @@ select dateId,evaluatePerson,jobEvaluateContent,totalScore from JobEvaluation wh
 group by dateId,evaluatePerson,jobEvaluateContent,totalScore order by dateId
 </select>
 <select id="getAllJobEvaluation" resultType="JobEvaluation">
-select max(dateId)as maxId,totalScore,dateId,stuId from JobEvaluation group by totalScore,dateId,stuId order by dateId
+select totalScore,dateId,stuId from JobEvaluation group by totalScore,dateId,stuId order by stuId,dateId
 </select>
 </mapper>

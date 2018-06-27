@@ -2,10 +2,8 @@ package com.jxdedu.dao;
 
 import java.util.List;
 
-import com.jxdedu.entity.EvaluateDate;
-import com.jxdedu.entity.JobEvaluateOption;
+
 import com.jxdedu.entity.JobEvaluation;
-import com.jxdedu.entity.Student;
 
 /**
  * 工作评价数据访问层接口.
@@ -15,11 +13,11 @@ import com.jxdedu.entity.Student;
  */
 public interface JobEvaluationDao {
     /**
-     * 添加一条评价记录
+     * 添加评价记录
      * @param evaluation    评价信息
      * @return  true,如果添加成功; false,如果添加失败
      */
-    boolean addJobEvaluation(JobEvaluation evaluation,Student stuid,JobEvaluateOption optionid,EvaluateDate dateid);
+    boolean addJobEvaluation(List<JobEvaluation> evaluation);
     /**
      * 更新一条评价记录.
      * 根据给定评价记录的id,更新其它字段;

@@ -7,19 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.jxdedu.biz.JobEvaluationBiz;
 import com.jxdedu.dao.JobEvaluationDao;
-import com.jxdedu.entity.EvaluateDate;
-import com.jxdedu.entity.JobEvaluateOption;
 import com.jxdedu.entity.JobEvaluation;
-import com.jxdedu.entity.Student;
 @Service("je")
 public class JobEvaluationBizImpl implements JobEvaluationBiz {
 	@Autowired
 	private JobEvaluationDao job;
 	@Override
-	public boolean addJobEvaluation(JobEvaluation evaluation, Student stuid, JobEvaluateOption optionid,
-			EvaluateDate dateid) {
+	public boolean addJobEvaluation(List<JobEvaluation> evaluation) {
 		// TODO Auto-generated method stub
-		return job.addJobEvaluation(evaluation, stuid, optionid, dateid);
+		return job.addJobEvaluation(evaluation);
 	}
 
 	@Override

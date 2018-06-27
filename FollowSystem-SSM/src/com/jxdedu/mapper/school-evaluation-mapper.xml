@@ -19,7 +19,7 @@ EVALUATECONTENT                 VARCHAR2(200)
 	</select>
 	<!-- 添加一条新的评价信息 -->
  	<insert id="addSchoolEvaluation">
- 		insert into SchoolEvaluation(evaluateID, stuID, evaluatePerson, evaluateScore, evaluateContent)
+ 		insert into SchoolEvaluation(evaluateId, stuId, evaluatePerson, evaluateScore, evaluateContent)
  		values(seq_school_evaluation.nextval, #{stuId}, #{evaluatePerson}, 
  			#{evaluateScore}, #{evaluateContent})
  	</insert>
@@ -27,16 +27,16 @@ EVALUATECONTENT                 VARCHAR2(200)
 	<!-- 更新语句,按照给定的 evaluateID ,更新其余字段-->
 	<update id="updateSchoolEvaluation" parameterType="SchoolEvaluation">
 		update SchoolEvaluation 
-		set evaluateID=#{evaluateId}, stuID=#{stuId}, evaluatePerson=#{evaluatePerson},
+		set evaluateId=#{evaluateId}, stuId=#{stuId}, evaluatePerson=#{evaluatePerson},
 			evaluateScore=#{evaluateScore}, evaluateContent=#{evaluateContent}
-		where evaluateID = #{evaluateId}
+		where evaluateId = #{evaluateId}
 	</update>
 	
 	
 	<select id="getSchoolEvaluationByID" resultType="SchoolEvaluation">
 		select * 
 		from schoolEvaluation
-		where evaluateID=#{evaluateId}
+		where evaluateId=#{evaluateId}
 	</select>
 	<select id="getTotalCount" resultType="int">
 		select count(*)
