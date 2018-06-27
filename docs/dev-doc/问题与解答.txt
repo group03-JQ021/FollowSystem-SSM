@@ -1,0 +1,22 @@
+* C3P0 内存泄漏
+
+    - 问题描述:
+
+        重新加载 web 应用时, 有如下日志:
+
+        严重: The web application [/FL] appears to have started a thread named [C3P0PooledConn
+        ectionPoolManager-Helper Thread-#1] but has failed to stop it. This is very likely to
+        create a memory leak.
+
+        2018-06-26 星期二 17:16
+
+    - 解决
+
+        c3p0 配置文件中, 配置属性如下:
+        `<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">`
+        添加 destroy-method="close" 后, 问题消失.
+        `<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" >`
+
+        2018-06-26 星期二 17:16
+
+        参考连接: https://blog.csdn.net/java_way/article/details/42017271
