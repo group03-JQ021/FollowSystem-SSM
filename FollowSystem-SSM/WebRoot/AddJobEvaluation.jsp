@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <tr>
  	<td colspan="2" align="center">
  		<input type="submit" value="提交">
-  		<input type="button" value="取消" onclick="javascript:location.href='studentManage.do'">
+  		<input type="button" value="取消" onclick="javascript:location.href='StudentManage.do'">
   	</td>
   </tr>
   </table>

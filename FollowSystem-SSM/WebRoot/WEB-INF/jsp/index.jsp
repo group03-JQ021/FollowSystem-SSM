@@ -21,6 +21,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
-  </body>w
+    <a href="getSubStudent.do?currentPage=1">添加学生信息 </a>
+  </body>
 </html>

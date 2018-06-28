@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.jxdedu.biz.CourseBiz;
@@ -26,7 +27,7 @@ import com.jxdedu.entity.Score;
 import com.jxdedu.entity.Student;
 
 @Controller
-@SessionAttributes({"option","date"})
+@SessionAttributes({"option","date","score","j","course","school"})
 public class StudentController {
 	@Resource(name="student")
 	private StudentBiz stus;
@@ -58,7 +59,7 @@ public class StudentController {
 		model.addAttribute("course",course);
 		model.addAttribute("option", option);
 		model.addAttribute("school", school);
-		return "StudentManage";
+		return "redirect:getSubStudent.do?currentPage=1";
 	}
 	 @RequestMapping("/getSubStudent")
 	    public String doGetSubKids(int currentPage,Model model){
@@ -77,10 +78,11 @@ public class StudentController {
 			int startIndex = (currentPage - 1) * pageSize + 1;
 			 int endIndex = currentPage * pageSize > totalnum ? totalnum
 					: currentPage * pageSize;
-		    	List<Student> list = stus.getSubStudent(startIndex, endIndex);
+		    	List<Student> stu = stus.getSubStudent(startIndex, endIndex);
 			 model.addAttribute("prePage", currentPage-1);
 			 model.addAttribute("nextPage", currentPage+1);
-			 model.addAttribute("list", list);
+			 model.addAttribute("stu", stu);
+			 model.addAttribute("currentPage", currentPage);
 			 model.addAttribute("pageCount", pageCount);
 	    	return "StudentManage";
 	 }

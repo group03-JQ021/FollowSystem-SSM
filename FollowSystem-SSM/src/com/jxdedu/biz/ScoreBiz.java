@@ -32,5 +32,7 @@ public interface ScoreBiz {
      */
     int getTotalCount();
     
+    List<Score> getoneScoreById(int stuId);
+    
 }
 

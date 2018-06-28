@@ -43,11 +43,14 @@ PUBLIC "-//mybatis.org//DTD
 	 <association property="dept" javaType="dept">
 	 <result property="deptName" column="deptname"></result>
 	 </association>
-	 <collection property="JobEvaluation" resultMap="JobEvaluations" column="stuid"/> 
-	 <collection property="score" resultMap="scores" column="stuid"/>
+	 <association property="classDate" javaType="classDate">
+	 <result property="className" column="classname"/>
+	 </association>
+	 <!-- <collection property="JobEvaluation" resultMap="JobEvaluations" column="stuid"/> 
+	 <collection property="score" resultMap="scores" column="stuid"/> -->
  </resultMap>
  
- <resultMap type="Score" id="scores">
+<!--  <resultMap type="Score" id="scores">
 	 <result property="courseId" column="courseid"/>
 	 <result property="score" column="score"/>
 	 <association property="course" javaType="Course">
@@ -70,9 +73,9 @@ PUBLIC "-//mybatis.org//DTD
 		<result property="optionName" column="optionname"/>
 		<result property="optionState" column="optionstate"/>
 	</collection>
- </resultMap>
+ </resultMap> -->
 <!-- <select id="getAllStudent" resultType="Student" resultMap="StudentManageList"> -->
-<select id="getAllStudent" resultType="Student" resultMap="StudentManageList">
+<select id="getAllStudent" resultType="Student">
 	 select stuId,stuName,sex,student.university,birthplace
 	from student
 </select>
@@ -88,9 +91,9 @@ student.stuid=SchoolEvaluation.stuid and student.stuid=JobEvaluation.stuid and
 select count(*) from student
 </select>
 <select id="getSubStudent" resultType="Student">
-select stuId,stuName,sex,student.university,birthplace
-	from (select rownum r,stuId,stuName,sex,student.university,birthplace
-	from student Rownum &lt;=#{1})t where r &gt;=#{0}
+select stuId,stuName,sex,university,birthplace
+	from (select rownum r,stuId,stuName,sex,university,birthplace
+	from student where Rownum &lt;=#{1})t where r &gt;=#{0}
 </select>
 <select id="showStudent" resultType="Student" resultMap="StudentManageList">
 select student.stuid,dept.deptname,JobEvaluation.evaluateperson,
@@ -98,5 +101,8 @@ JobEvaluation.totalscore,JobEvaluation.jobevaluatecontent,EvaluateDate.datename
 from Dept,JobEvaluation,JobEvaluateOption,student,EvaluateDate where student.deptid=dept.deptid and student.stuid=JobEvaluation.stuid and 
 JobEvaluation.optionid=JobEvaluateOption.optionid and
  EvaluateDate.dateid=JobEvaluation.dateid and student.stuid='${value}'
+</select>
+<select id="getStudentById" resultType="Student">
+select *  from student where stuId='${value}'
 </select>
 </mapper>

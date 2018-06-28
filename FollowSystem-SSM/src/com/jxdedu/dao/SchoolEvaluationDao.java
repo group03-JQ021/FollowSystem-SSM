@@ -45,5 +45,5 @@ public interface SchoolEvaluationDao {
      */
     int     getTotalCount();
     
-    
+    SchoolEvaluation  getSchoolEvaluationBystuId(int stuId);
 }

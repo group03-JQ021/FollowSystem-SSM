@@ -32,9 +32,101 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-	<div class="container" id="con">
-		<form action="AddJobEvaluntion.do"></form>	
-		<table class="table table-bordered table-hover">	
+		<h2 align="center">金桥学院成长跟踪表</h2>
+		<p>
+		<p align="right" class="container"><input type="button" value="返回" onclick="javascript:location.href='StudentManage.do'"></p>
+	<div class="container" id="con">	
+		<table class="table table-bordered table-hover">			
+					<tr>
+						<td>姓名</td>
+						<td>${student.stuName }</td>
+						<td>性别</td>						
+						<td colspan="3">${student.sex }</td>
+						<td>民族</td>
+						<td>${student.nation}</td>
+						<td colspan="2" rowspan="4"></td>						
+					</tr>
+					<tr>
+						<td>出生年月</td>
+						<td>${student.birthday }</td>
+						<td>籍贯</td>
+						<td colspan="3">${student.birthPlace }</td>
+						<td>婚否</td>
+						<td>${student.marry }</td>
+					</tr>
+					<tr>						
+						<td>联系电话</td>
+						<td colspan="2">${student.telephone }</td>
+						<td colspan="3">身份证号码</td>
+						<td colspan="2">${student.idCard }</td>
+					</tr>
+					<tr>						
+						<td>毕业学校</td>
+						<td colspan="2">${student.university }</td>
+						<td colspan="3">专业</td>
+						<td colspan="2">${student.major }</td>
+					</tr>
+					<tr>
+						<td>备注</td>
+						<td colspan="9">${student.note }</td>
+					</tr>
+					<tr>
+						<td colspan="10" align="center">培训学校评价</td>
+
+					</tr>
+					<tr>
+						<td rowspan="2">培训学校</td>
+						<td rowspan="2">班期</td>
+						<td rowspan="2">评价人</td>
+						<td colspan="6" align="center">培训期间测试成绩</td>
+						<td rowspan="2">整体评价分数</td>
+					</tr>
+					<tr>
+					<c:forEach var="cou" items="${requestScope.course}">
+						<td>${cou.courseName }</td>
+						</c:forEach>
+					</tr>
+					<tr>
+					<td>学习评价</td>
+					<c:forEach var="classes" items="${requestScope.cds }">
+						<c:if test="${student.classId==classes.classId }">
+							<td>${classes.className }</td>
+						</c:if>
+					</c:forEach>
+			
+							<td>${schools.evaluatePerson }</td>
+	
+					<c:set var="cn" value="0"></c:set>
+							<c:forEach var="e" items="${requestScope.score}">							
+									<c:if test="${e.courseId == course[cn].courseId}">
+										<td>${e.score}</td>																			
+									</c:if>
+									<c:if test="${e.courseId != course[cn].courseId}">
+									<c:forEach begin="${course[cn].courseId}" end="6">
+									<c:if test="${e.courseId == course[cn].courseId}">
+										<td>${e.score}</td>									
+									</c:if>
+									<c:if test="${e.courseId != course[cn].courseId}">
+									<td></td>									
+									</c:if>
+									<c:set var="cn" value="${cn+1}"></c:set>
+									</c:forEach>
+									</c:if>
+									<c:set var="cn" value="${cn+1}"></c:set>
+							</c:forEach>
+							<c:forEach begin="${cn+1}" end="6">
+								<td></td>
+							</c:forEach>	
+							<td>${schools.evaluateScore }</td>					
+					</tr>
+					<tr>
+								<td>评价(包括主要
+								<br>优点及缺陷)
+								</td>						
+
+							<td colspan="9" align="center">			
+								${schools.evaluateContent }</td>													
+					</tr>
 		<c:forEach var="i" items="${requestScope.date}">		
 					<tr>
 						<td colspan="10" align="center">${i.dateName }工作评价</td>
@@ -94,18 +186,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td></td>
 						</c:if>
 					</tr>
-					<tr>
+					<tr height="100px">
 					<c:set var="list" value="true"></c:set>
 					<c:forEach var="k" items="${requestScope.list1}" >			
 						<c:if test="${k.dateId==i.dateId }">
-								<td>评价（包括主要优点及缺陷）</td>							
+								<td>评价(包括主要
+								<br>优点及缺陷)</td>							
 								<td colspan="9" align="center">${k.jobEvaluateContent}</td>
 								<c:set var="list" value="false"></c:set>
 							</c:if>	
 						
 								</c:forEach>
 								<c:if test="${list }">
-								<td>评价（包括主要优点及缺陷）</td>
+								<td>评价(包括主要
+								<br>优点及缺陷)</td>
 							<td colspan="9" align="center"></td>									
 					</c:if>
 					</tr>

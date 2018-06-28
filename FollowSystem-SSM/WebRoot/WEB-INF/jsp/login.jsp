@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </ul>
       <div class="tab-content panel panel-default">
         <div id="menu1" class="tab-pane fade in active panel-body ">
-            <form class="form" action="getSubStudent.do?currentPage=1" method="post">
+            <form class="form" action="login.do" method="post">
                 <div class="form-group has-feedback">
                     <label class="sr-only" for="userName">用户名:</label>
                     <!-- 表单属性, required, HTML5新增, 表示必须填写该字段, 如果有未填写的required表单向,

@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD
 ">
 <mapper namespace="com.jxdedu.dao.JobEvaluationDao">
 
- <resultMap type="JobEvaluation" id="JobEvaluations">
+ <!-- <resultMap type="JobEvaluation" id="JobEvaluations">
   	<result property="dateId" column="dateid"/>
   	<result property="optionId" column="optionid"/>
   	<result property="stuId" column="stuid"/>
@@ -23,12 +23,12 @@ PUBLIC "-//mybatis.org//DTD
 		<result property="optionName" column="optionname"/>
 		<result property="optionState" column="optionstate"/>
 	</association>
- </resultMap>
+ </resultMap> -->
 <insert id="addJobEvaluation" parameterType="JobEvaluation">
 	insert into JobEvaluation
 	values(#{dateId},#{stuId},#{optionId},#{evaluatePerson},#{evaluateScore},#{totalScore},#{jobEvaluateContent})
 </insert>
-<select id="showJobEvaluations" resultType="JobEvaluation" resultMap="JobEvaluations">
+<select id="showJobEvaluations" resultType="JobEvaluation">
 select dateId,evaluateScore from JobEvaluation where
 stuId='${value}' order by dateId
 </select>

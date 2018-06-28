@@ -45,6 +45,6 @@ public interface SchoolEvaluationBiz {
      */
     int     getTotalCount();
     
-    
+    SchoolEvaluation  getSchoolEvaluationBystuId(int stuId);
 }
 

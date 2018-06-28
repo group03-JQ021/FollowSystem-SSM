@@ -36,5 +36,7 @@ public interface ScoreDao {
      */
     int getTotalCount();
     
+    List<Score> getoneScoreById(int stuId);
+    
 }
 

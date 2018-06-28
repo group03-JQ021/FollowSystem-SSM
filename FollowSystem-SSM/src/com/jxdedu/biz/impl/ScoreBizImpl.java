@@ -36,4 +36,10 @@ public class ScoreBizImpl implements ScoreBiz{
 		return dao.getTotalCount();
 	}
 
+	@Override
+	public List<Score> getoneScoreById(int stuId) {
+		// TODO Auto-generated method stub
+		return dao.getoneScoreById(stuId);
+	}
+
 }

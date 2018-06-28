@@ -35,7 +35,9 @@ SCORE                                              NUMBER(7)
 		set score=#{score}
 		where stuID=#{stuId} and courseID=#{courseId}
 	</update>
-	
+	<select id="getoneScoreById" resultType="Score">
+	select * from score where stuId='${value}' order by courseId
+	</select>
 
 	
 </mapper>

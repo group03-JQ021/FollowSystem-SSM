@@ -44,7 +44,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div>
 			<table class="table table-bordered table-hover" border="1">
-				<thead>
 					<tr class="theadColor">
 						<td rowspan="2">序号</td>
 						<td rowspan="2">姓名</td>
@@ -64,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td>${c.courseName}</td>
 						</c:forEach>
 					</tr>
-				</thead>
+
 				
 				<c:if test="${not empty requestScope.stu}">
 					<c:forEach var="s" items="${requestScope.stu }" varStatus="sta">
@@ -134,21 +133,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</tr>
 				</c:if>
 			</table>
+			<div align="center">
 			<a href="getSubStudent.do?currentPage=1">首页</a> <a
-				href="getSubStudent.do?currentPage=${prePage }">上一页</a> <select
-				id="choice"
-				onchange="location.href='getSubStudent.do?pageNum='+this.value">
+				href="getSubStudent.do?currentPage=${prePage }">上一页</a> 
+				<select	id="choice"
+				onchange="location.href='getSubStudent.do?currentPage='+this.value">
 				<c:forEach var="page" begin="1" end="${requestScope.pageCount }"
 					step="1">
-					<c:if test="${page != currentPage }">
-						<option value="${page }">${page }/${pageCount }</option>
-					</c:if>
-					<c:if test="${page == currentPage }">
-						<option value="${page }" selected>${page }/${pageCount }</option>
-					</c:if>
+						<c:if test="${page != currentPage }">
+    				<option value="${page }">第${page }页</option>
+    			</c:if>
+    			<c:if test="${page == currentPage }">
+    				<option value="${page }" selected>第${page }页</option>
+    			</c:if>
 				</c:forEach>
 			</select> <a href="getSubStudent.do?currentPage=${nextPage }">下一页</a> <a
 				href="getSubStudent.do?currentPage=${pageCount }">尾页</a>
+				</div>
 		</div>
 </body>
 </html>

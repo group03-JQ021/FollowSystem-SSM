@@ -41,4 +41,10 @@ public class SchoolEvaluationBizImpl implements SchoolEvaluationBiz{
 		return dao.getTotalCount();
 	}
 
+	@Override
+	public SchoolEvaluation getSchoolEvaluationBystuId(int stuId) {
+		// TODO Auto-generated method stub
+		return dao.getSchoolEvaluationBystuId(stuId);
+	}
+
 }

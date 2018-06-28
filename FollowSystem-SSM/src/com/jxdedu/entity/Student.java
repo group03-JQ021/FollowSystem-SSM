@@ -24,6 +24,13 @@ public class Student {
 	private SchoolEvaluation SchoolEvaluation;
 	private List<JobEvaluation> JobEvaluation;
 	private Dept dept;
+	private ClassDate classDate;
+	public ClassDate getClassDate() {
+		return classDate;
+	}
+	public void setClassDate(ClassDate classDate) {
+		this.classDate = classDate;
+	}
 	public Dept getDept() {
 		return dept;
 	}
@@ -153,7 +160,7 @@ public class Student {
 	public Student(int stuId, String stuName, String sex, String nation, Date birthday, String birthPlace, String marry,
 			String telephone, String idCard, String university, String major, String photo, String note, String state,
 			int classId, int deptId, List<Score> score, com.jxdedu.entity.SchoolEvaluation schoolEvaluation,
-			List<com.jxdedu.entity.JobEvaluation> jobEvaluation, Dept dept) {
+			List<com.jxdedu.entity.JobEvaluation> jobEvaluation, Dept dept, ClassDate classDate) {
 		super();
 		this.stuId = stuId;
 		this.stuName = stuName;
@@ -175,6 +182,8 @@ public class Student {
 		SchoolEvaluation = schoolEvaluation;
 		JobEvaluation = jobEvaluation;
 		this.dept = dept;
+		this.classDate = classDate;
 	}
+
 	
 }

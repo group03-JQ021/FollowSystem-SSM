@@ -42,4 +42,9 @@ EVALUATECONTENT                 VARCHAR2(200)
 		select count(*)
 		from schoolEvaluation
 	</select>
+	<select id="getSchoolEvaluationBystuId" resultType="SchoolEvaluation">
+	select * 
+		from schoolEvaluation
+		where evaluateId=#{stuId}
+	</select>
 </mapper>
