@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxdedu.dao.DeptDao">
+
+	<select id="getDeptRowNum" resultType="int">
+		select count(*) from dept
+	</select>
+	<select id="getSubDept" resultType="Dept">
+	<![CDATA[
+		select * from (
+				select rownum r,t.* from (
+					select * from Dept order by deptid) t 
+				where rownum<=#{1}) 
+			where r>=#{0}
+	]]>
+	</select>
+	
+	<select id="fuzzySearchDept" resultType="Dept">
+		select * from dept
+		<where>
+			<if test="_parameter!=null and _parameter=''">
+				deptName like '%'||#{deptName}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<insert id="addDept" parameterType="Dept">
+		insert into dept(deptId,deptName,deptAddress) 
+					values(dept_seq.nextval,#{deptName},#{deptAddress})
+	</insert>
+	
+	<select id="getDeptByDeptId" resultType="Dept">
+		select * from dept where deptid=#{deptId}
+	</select>
+	
+	<update id="editDept" parameterType="Dept">
+		update dept 
+		set deptName=#{deptName},deptAddress=#{deptAddress} 
+		where deptId=#{deptId}
+	</update>
+</mapper>

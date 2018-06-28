@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <div class="container">
   <a class="btn btn-primary" href="sysadm/paginShow.do" >管理员页面</a>
+  <a href="getSubDept.do">部门</a>
 </div>
 
 </body>
