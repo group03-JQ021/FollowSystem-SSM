@@ -3,16 +3,17 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jxdedu.dao.StudentDao">
-	<select id="getStuRowNum" resultMap="Integer">
-		select count(*) from Student
+	<select id="getStuRowNum" resultType="int">
+		select count(*) from student 
 	</select>
-	<select id="getSubStudent" resultMap="Student">
+	<select id="getSubStudent" resultType="Student">
 		<![CDATA[
 			select * from (
-				select rownum r,t.* from (
-					select * from Student order by stuid desc) t 
-				where rownum<#{1}) 
-			where r>#{0}
+	      		select rownum r,stu.* from (
+	            	select * from student order by stuid)
+	       		stu where rownum <=#{1}) 
+			where r>=#{0}
 		]]>
 	</select>
+	
 </mapper>

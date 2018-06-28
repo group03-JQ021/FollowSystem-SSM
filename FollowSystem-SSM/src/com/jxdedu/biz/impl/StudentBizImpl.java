@@ -14,21 +14,6 @@ public class StudentBizImpl implements StudentBiz{
 	private StudentDao studentDao;
 	
 	@Override
-	public boolean addStudent(Student student) {
-		return false;
-	}
-
-	@Override
-	public boolean delStudent(String[] arr) {
-		return false;
-	}
-
-	@Override
-	public boolean editStudent(Student student) {
-		return false;
-	}
-
-	@Override
 	public int getStuRowNum() {
 		int rowNum = 0;
 		rowNum = studentDao.getStuRowNum();
@@ -42,7 +27,7 @@ public class StudentBizImpl implements StudentBiz{
 		return list;
 	}
 
-	@Override
+	/*@Override
 	public List<Student> likeSearchStu(String stuName) {
 		return null;
 	}
@@ -61,5 +46,19 @@ public class StudentBizImpl implements StudentBiz{
 	public Student getAllStuInfo() {
 		return null;
 	}
+	@Override
+	public boolean addStudent(Student student) {
+		return false;
+	}
+
+	@Override
+	public boolean delStudent(String[] arr) {
+		return false;
+	}
+
+	@Override
+	public boolean editStudent(Student student) {
+		return false;
+	}*/
 
 }

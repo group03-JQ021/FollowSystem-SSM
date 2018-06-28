@@ -1,5 +1,6 @@
 package com.jxdedu.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -32,14 +33,14 @@ public class DeptController {
 	@RequestMapping("/getSubDept")
 	public String getSubDept(String pageNum, Model model) {
 		// 当前页数
-		logger.info("分页:" + pageNum + ":");
+		//logger.info("分页:" + pageNum + ":");
 		int deptCurrentPage = 1;
 		if (pageNum != null) {
 			deptCurrentPage = Integer.parseInt(pageNum);
 		}
 
 		// 页容量
-		int pageSize = 3;
+		int pageSize = 2;
 
 		// 获取所有的行数
 		// logger.info("页面大小:" + pageSize);
@@ -71,22 +72,60 @@ public class DeptController {
 		model.addAttribute("list", list);
 		return "deptInfo/deptInfoList";
 	}
+	void setPage(String pageNum, Model model){
+		// 当前页数
+		//logger.info("分页:" + pageNum + ":");
+		int deptCurrentPage = 1;
+		if (pageNum != null) {
+			deptCurrentPage = Integer.parseInt(pageNum);
+		}
+
+		// 页容量
+		int pageSize = 2;
+
+		// 获取所有的行数
+		// logger.info("页面大小:" + pageSize);
+		int totalNum = deptBiz.getDeptRowNum();
+		// logger.info("总数:" + totalNum);
+		// 获取数据的总页数
+		int pageCount = totalNum % pageSize == 0 ? totalNum / pageSize : totalNum / pageSize + 1;
+
+		if (deptCurrentPage <= 1) {
+			deptCurrentPage = 1;
+		} else if (deptCurrentPage >= pageCount) {
+			deptCurrentPage = pageCount;
+		}
+		// 获取开始行和结束行
+		int startIndex = (deptCurrentPage - 1) * pageSize + 1;
+		int endIndex = deptCurrentPage * pageSize < totalNum ? deptCurrentPage * pageSize : totalNum;
+		int prePage = deptCurrentPage - 1;
+		int nextPage = deptCurrentPage + 1;
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("prePage", prePage);
+		model.addAttribute("nextPage", nextPage);
+		model.addAttribute("deptCurrentPage", deptCurrentPage);
+	}
 	
-	/*@RequestMapping("/fuzzySearchDept")
-	public String fuzzySearchDept(String deptName,Model model){
+	@RequestMapping("/fuzzySearchDept")
+	public String fuzzySearchDept(String deptName,String pageNum,Model model){
 		List<Dept> list = null;
 		list = deptBiz.fuzzySearchDept(deptName);
+		// list = deptBiz.subFuzzySearchDept(deptName, startIndex, endIndex);
+		System.out.println("搜索结果:"+list);
 		model.addAttribute("list", list);
-		return "getSubDept.do";
-	}*/
-	@RequestMapping("/fuzzySearchDept")
+		return "deptInfo/deptInfoList";
+	}
+	
+	/*@RequestMapping("/fuzzySearchDept")
 	public String fuzzySearchDept(int deptId,Model model){
-		List<Dept> list = null;
-		list = (List<Dept>) deptBiz.getDeptByDeptId(deptId);
+		Dept dept = null;
+		dept = deptBiz.getDeptByDeptId(deptId);
+		List<Dept> list = new ArrayList<Dept>();
+		list.add(dept);
 		model.addAttribute("list",list);
 		model.addAttribute("deptId",deptId);
 		return "deptInfo/deptInfoList";
-	}
+	}*/
 	
 	
 	//添加

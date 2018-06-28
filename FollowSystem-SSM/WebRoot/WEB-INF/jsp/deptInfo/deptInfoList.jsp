@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>学员基本信息列表</title>
+<title>部门基本信息列表</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -37,8 +37,8 @@ table{
 	$(document).ready(function(){
 		//模糊查询
 		$("#fuzzySearchDept").click(function(){
-			var deptId = $("#search").val;
-			location.href="fuzzySearchDept.do?deptId="${deptId}
+			var deptId = $("#search").val();
+			location.href="fuzzySearchDept.do?deptName=" + deptId;
 		});
 		
 		$("#allSel").click(function(){
@@ -101,14 +101,14 @@ table{
 			</c:choose>
 			
 		</table>
-			<a href="getSubDept.do?pageNum=1">首页</a> 
-			<a href="getSubDept.do?pageNum=${prePage }">上一页</a>
-			<select id="selPage">
-				<c:forEach var="i" begin="1" end="${pageCount}" step="1" >
-					<option value="${i}" ${i == deptCurrentPage?"selected":""} >${ i}/${pageCount}</option>
-				</c:forEach>
-			</select>
+		<a href="getSubDept.do?pageNum=1">首页</a> 
+		<a href="getSubDept.do?pageNum=${prePage }">上一页</a>
+		<select id="selPage">
+			<c:forEach var="i" begin="1" end="${pageCount}" step="1" >
+				<option value="${i}" ${i == deptCurrentPage?"selected":""} >${ i}/${pageCount}</option>
+			</c:forEach>
+		</select>
 		<a href="getSubDept.do?pageNum=${nextPage}">下一页</a> 
-			<a href="getSubDept.do?pageNum=${pageCount }">末页</a>
+		<a href="getSubDept.do?pageNum=${pageCount }">末页</a>
 	</div>
 </body>
