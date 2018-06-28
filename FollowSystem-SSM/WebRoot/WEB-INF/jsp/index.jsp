@@ -12,13 +12,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <jsp:include page="/WEB-INF/jsp/snippet/ref.jsp"></jsp:include>
 
   <title>主页</title>
-
+  <style type="text/css">
+    div.container{
+      width:400px;
+      margin-top:50px;
+    }
+  </style>
 </head>
-
 <body>
-<div class="container">
-  <a class="btn btn-primary" href="sysadm/paginShow.do" >管理员页面</a>
-  <a href="getSubDept.do">部门</a>
+<div class="container text-center">
+  <div class="btn-group">
+    <a class="btn btn-default" href="sysadm/paginShow.do" >管理员页面</a>
+    <a class="btn btn-default" href="getSubDept.do">部门</a>
+  </div>
+
 </div>
 
 </body>
