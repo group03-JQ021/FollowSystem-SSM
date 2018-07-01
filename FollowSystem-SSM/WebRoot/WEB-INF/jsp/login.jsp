@@ -37,21 +37,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </style>
   <script type="text/javascript">
     $(function () {
-      // 启用js插件: 弹出框
-      $('[data-toggle="popover"]').popover();
-
-      // 表单输入域都得非空
-      $("input[required]").blur(function () {
-          if ($(this).val() == ""){
-              $(this).popover("show");
-              $(this).parent().addClass("has-error");
-          }else{
-              $(this).parent().removeClass("has-error").addClass("has-success");
-              $(this).addClass("glyphicon glyphicon-ok");
-          }
-      }).focus(function() {
-          $(this).popover("hide");
-      });
 
 
     });
@@ -80,18 +65,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <div class="tab-content panel panel-default">
         <div id="menu1" class="tab-pane fade in active panel-body ">
             <form class="form" action="login.do" method="post">
-                <div class="form-group has-feedback">
-                    <label class="sr-only" for="userName">用户名:</label>
+                <div class="form-group">
+                    <label class="sr-only" for="loginName">用户名:</label>
                     <!-- 表单属性, required, HTML5新增, 表示必须填写该字段, 如果有未填写的required表单向,
                       点击提交按钮时, 浏览器会提示, 并拒绝提交 -->
                     <!-- autofocus 是 h5 新增属性, 用于加载页面后自动聚焦 -->
-                    <input class="form-control" type="text" id="userName" name="loginName"  placeholder="输入用户名"
-                       title="请输入用户名" required
-                       data-toggle="popover" data-trigger="manual" data-placement="left">
+                    <input class="form-control" type="text" id="loginName" name="loginName"  placeholder="输入用户名"
+                      required
+                      data-toggle="popover" data-trigger="manual" data-placement="left">
                     <!-- <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span> -->
 
                 </div>
-                <div class="form-group has-feedback">
+                <div class="form-group">
                     <label class="col sr-only">密码:</label>
                     <!-- pttern 是h5新增属性,用于验证表单元素的输入内容, pattern 是 JavaScript 中的正则表达式语法
                         默认, 当提交表单时, 浏览器执行验证; 若验证失败, 则浏览器拒绝提交, 并给出提示;
@@ -99,22 +84,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     -->
 
                     <input class="form-control" type="password" name="loginPassword" placeholder="输入登录密码"
-                      required pattern="[\w@*$]{3,21}"
+                      required pattern="[\w@*$]{6,21}"
                       data-toggle="popover"  data-content="密码长度6~21位, 仅允许数字字母下划线@*$" data-trigger="manual" data-placement="left">
                 </div>
-                <div class="form-group has-feedback">
+                <div class="form-group">
                   <div class="checkbox">
                     <label>
                       <input type="checkbox" name="remember">记住我
-                      <span class="form-control-static" id="msg">${loginMsg}</span>
                     </label>
-
                   </div>
 
                 </div>
                 <div class="form-group has-feedback">
                     <button type="submit" class="btn btn-primary btn-block">登录</button>
-
+                    <button type="reset" class="btn btn-primary btn-block">重置</button>
                 </div>
             </form>
         </div>
