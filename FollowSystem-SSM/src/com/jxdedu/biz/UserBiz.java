@@ -25,4 +25,6 @@ public interface UserBiz {
      */
     public List<User> getByRange(int lowerBound,int upperBound);
     /* end--分页查询相关功能 */
+    
+    public boolean checkUserName(String userName);
 }

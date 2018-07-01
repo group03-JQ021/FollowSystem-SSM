@@ -16,12 +16,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  -->
 <mapper namespace="com.jxdedu.dao.UserDao">
  	
- 	<!-- 查询; 获取所有记录 -->
-	<select id="getUserByNameAndPassword" resultType="User">
-		select * 
-		from users
-		where username=#{userName} and pwd=#{pwd}
-	</select>
 	
 	<!--============= 分页查询相关方法 ====================-->
 	<!--  -->

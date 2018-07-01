@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.jxdedu.assit.PagingStatus;
@@ -94,6 +95,24 @@ public class UserController {
         /* 向视图层传递数据 */
         model.addAttribute("list",list);
         return "user/paging-show";
+    }
+    
+    /**
+     * 查询指定用户是否存在;
+     * @param userName
+     * @return
+     */
+    @RequestMapping("/checkUserName")
+    @ResponseBody
+    public boolean doCheckUsername(String userName){
+        logger.debug("验证用户名:"+userName);
+        return biz.checkUserName(userName);
+    }
+    @RequestMapping("/checkLogin")
+    @ResponseBody
+    public boolean doCheckLogin(String userName,String password){
+        logger.debug("验证登录:"+userName +":"+password);
+        return biz.isValid(userName, password);
     }
 }
 

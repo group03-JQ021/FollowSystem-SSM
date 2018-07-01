@@ -29,10 +29,12 @@ public class UserBizImpl implements UserBiz {
         User loginUser = new User();
         loginUser.setPwd(loginPassword);
         loginUser.setUserName(loginName);
+        logger.debug("验证用户:" + loginUser.getUserName()+":"+ loginUser.getPwd());
         
         // 据此查询数据库
         User user = dao.getUserByNameAndPassword(loginUser);
         
+        logger.debug("验证结果:" + (user == null? "null" : user.getUserName()+":"+ user.getPwd()));
         return (user != null    
                 && !"禁用".equals(user.getFlag()));
     }
@@ -51,6 +53,11 @@ public class UserBizImpl implements UserBiz {
         range.put("lowerBound", lowerBound);
         range.put("upperBound", upperBound);
         return dao.getByRange(range);
+    }
+
+    @Override
+    public boolean checkUserName(String userName) {
+        return (userName == null ? false : dao.countUserName(userName)>=1);
     }
 
 }
