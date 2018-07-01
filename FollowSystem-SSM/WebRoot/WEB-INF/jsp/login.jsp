@@ -38,129 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
 
   </style>
-  <script type="text/javascript">
-    var dbgFlag = true;
-
-    $(function () {
-      $('[data-toggle="popover"]').popover();
-
-
-      // 用户名验证
-      regCheckLoginName();
-
-      // 密码验证
-      regCheckPassword();
-
-    });
-
-    var userNameChecked = false;
-
-    function regCheckLoginName() {
-      $("#loginName").blur(function(){
-        var groupEle = $("#user-name-group");
-        var iconEle = $("#user-name-icon");
-
-        var userName = $.trim($(this).val()); // 获取用户名
-        $(this).val(userName);
-        clearIcon(groupEle, iconEle);
-
-        // 用户名检验
-        if (userName == ""){  // 用户名不能为空
-          popMsg($(this), '请输入用户名');  // 给出提示信息
-          userNameChecked = false;
-        }else {
-          url = "checkUserName.do";
-          $.ajax({
-            "url":url,
-            "type":"POST",
-            "data":{"userName":userName},
-            "error":function(){
-              if (dbgFlag)console.log("通信失败" + url);
-              userNameChecked = false;
-            },
-            "success":function(data){
-
-              if (data){ // 有此用户
-                userNameChecked = true;
-                okIcon(groupEle, iconEle);
-              }else{      // 查无此人
-                userNameChecked = false;
-                popMsg($("#loginName"), "用户"+ userName +"不存在");
-                errorIcon(groupEle, iconEle);
-              }
-            }
-          });
-        }
-        }).focus(function () {  //隐藏弹出框
-          $(this).popover('hide');
-        });
-
-    }
-    function regCheckPassword() {
-      $("#password").blur(function(){
-        // 参数
-        var password = $(this).val();
-        var userName = $("#loginName").val();
-        userName = $.trim(userName);
-        var groupEle = $("#password-group");
-        var iconEle = $("#password-icon");
-
-        clearIcon(groupEle, iconEle);
-        if (password == ""){  // 密码不能为空
-          popMsg($(this),  "密码不能为空");   // 弹出框提示
-        }else if (!/[\w@*$]{6,21}/.test(password)){  // 密码要符合格式
-          popMsg($(this), "密码长度6~21位, 仅允许数字字母下划线@*$");
-        }else if (userNameChecked){  // 用回那个已经验证通过时, 到服务器端验证,
-          var url = "checkLogin.do"
-          $(this).popover("hide");
-          $.ajax({
-            "url":url,
-            "type":"POST",
-            "data":{"userName":userName,"password":password},
-            "error":function (data) {
-              if (dbgFlag){
-                console.log("通信失败"+url);
-              }
-            },
-            "success":function (data) {
-              if (data){
-                // 显示图标(一个绿色的对号)
-                okIcon(groupEle, iconEle);
-              }else{
-                popMsg($("#password"), "密码错误!");
-                errorIcon(groupEle, iconEle);
-              }
-            }
-          });
-        }
-
-      }).focus(function () {
-        $(this).popover('hide');
-      });
-// password-icon
-    }
-    function popMsg(ele, msg){
-      ele.attr('data-content', msg);
-      ele.popover('show');
-    }
-
-    function okIcon(groupEle, iconEle){
-        // 显示图标(一个绿色的对号)
-        groupEle.addClass("has-success");
-        iconEle.addClass("glyphicon-ok");
-    }
-
-    function errorIcon(groupEle, iconEle){
-      groupEle.addClass("has-error");
-      iconEle.addClass("glyphicon-remove");
-    }
-
-    function clearIcon(groupEle, iconEle){
-      groupEle.removeClass("has-error");
-      iconEle.removeClass("glyphicon-remove");
-      groupEle.removeClass("has-success");
-      iconEle.removeClass("glyphicon-ok");
-    }
+  <script type="text/javascript" src="js/login.js">
 
   </script>
 </head>
@@ -227,8 +105,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                   </div>
                   <div class="form-group has-feedback">
-                      <button type="submit" class="btn btn-primary btn-block">登录</button>
-                      <button type="reset" class="btn btn-primary btn-block">重置</button>
+                      <button type="submit" class="btn btn-primary btn-block" id="submit-btn">登录</button>
+                      <button type="reset" class="btn btn-primary btn-block" id="reset-btn">重置</button>
                   </div>
               </form>
           </div>
