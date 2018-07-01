@@ -44,69 +44,78 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-<div class="container">
   <!-- 导航菜单 -->
   <!-- 目前为空 -->
-  <nav class="navbar navbar-inverse"></nav>
-  <!-- 页面主内容 -->
-  <div class="row">
-    <div class="col-md-3"></div>
-    <!-- logo图片 -->
-    <div class="col-md-5" id="logo-container" >
-      <img src="img/logo.png" alt="">
-    </div>
-    <!-- 登录框 -->
-    <div class="col-md-4" id="login-container">
-      <ul class="nav nav-tabs nav-justified">
-        <li class="active"><a data-toggle="tab" href="#menu1">账号密码登录</a></li>
-        <!-- <li class="disabled" title="抱歉, 功能尚不可用"><a  data-toggle="tab" href="#menu2">快速登录</a></li> -->
-        <li><a  data-toggle="tab" href="#menu2">快速登录</a></li>
-      </ul>
-      <div class="tab-content panel panel-default">
-        <div id="menu1" class="tab-pane fade in active panel-body ">
-            <form class="form" action="login.do" method="post">
-                <div class="form-group">
-                    <label class="sr-only" for="loginName">用户名:</label>
-                    <!-- 表单属性, required, HTML5新增, 表示必须填写该字段, 如果有未填写的required表单向,
-                      点击提交按钮时, 浏览器会提示, 并拒绝提交 -->
-                    <!-- autofocus 是 h5 新增属性, 用于加载页面后自动聚焦 -->
-                    <input class="form-control" type="text" id="loginName" name="loginName"  placeholder="输入用户名"
-                      required
-                      data-toggle="popover" data-trigger="manual" data-placement="left">
-                    <!-- <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span> -->
+  <nav class="navbar navbar-default"></nav>
+  <div class="container">
 
-                </div>
-                <div class="form-group">
-                    <label class="col sr-only">密码:</label>
-                    <!-- pttern 是h5新增属性,用于验证表单元素的输入内容, pattern 是 JavaScript 中的正则表达式语法
-                        默认, 当提交表单时, 浏览器执行验证; 若验证失败, 则浏览器拒绝提交, 并给出提示;
-                        title 属性的值被用作提示信息; 如果没有, 浏览器将使用默认提示.
-                    -->
+    <!-- 页面主内容 -->
+    <div class="row">
+      <div class="col-md-3"></div>
+      <!-- logo图片 -->
+      <div class="col-md-5" id="logo-container" >
+        <img src="img/logo.png" alt="">
+      </div>
+      <!-- 登录框 -->
+      <div class="col-md-4" id="login-container">
+        <ul class="nav nav-tabs nav-justified">
+          <li class="active"><a data-toggle="tab" href="#menu1">账号密码登录</a></li>
+          <!-- <li class="disabled" title="抱歉, 功能尚不可用"><a  data-toggle="tab" href="#menu2">快速登录</a></li> -->
+          <li><a  data-toggle="tab" href="#menu2">快速登录</a></li>
+        </ul>
+        <div class="tab-content panel panel-default">
+          <div id="menu1" class="tab-pane fade in active panel-body ">
+              <form class="form" action="login.do" method="post">
+                  <div class="form-group">
+                      <label class="sr-only" for="loginName">用户名:</label>
+                      <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <!-- 表单属性, required, HTML5新增, 表示必须填写该字段, 如果有未填写的required表单向,
+                          点击提交按钮时, 浏览器会提示, 并拒绝提交 -->
+                        <!-- autofocus 是 h5 新增属性, 用于加载页面后自动聚焦 -->
+                        <input class="form-control" type="text" id="loginName" name="loginName"  placeholder="输入用户名"
+                          required
+                          data-toggle="popover" data-trigger="manual" data-placement="left">
+                        <!-- <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span> -->
 
-                    <input class="form-control" type="password" name="loginPassword" placeholder="输入登录密码"
-                      required pattern="[\w@*$]{6,21}"
-                      data-toggle="popover"  data-content="密码长度6~21位, 仅允许数字字母下划线@*$" data-trigger="manual" data-placement="left">
-                </div>
-                <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" name="remember">记住我
-                    </label>
+                      </div>
+
                   </div>
+                  <div class="form-group">
 
-                </div>
-                <div class="form-group has-feedback">
-                    <button type="submit" class="btn btn-primary btn-block">登录</button>
-                    <button type="reset" class="btn btn-primary btn-block">重置</button>
-                </div>
-            </form>
-        </div>
-        <div id="menu2" class="tab-pane fade panel-body">
-          <p>快速登录暂未实现</p>
+                    <label class="col sr-only">密码:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                      <!-- pttern 是h5新增属性,用于验证表单元素的输入内容, pattern 是 JavaScript 中的正则表达式语法
+                          默认, 当提交表单时, 浏览器执行验证; 若验证失败, 则浏览器拒绝提交, 并给出提示;
+                          title 属性的值被用作提示信息; 如果没有, 浏览器将使用默认提示.
+                      -->
+
+                      <input class="form-control" type="password" name="loginPassword" placeholder="输入登录密码"
+                        required pattern="[\w@*$]{6,21}"
+                        data-toggle="popover"  data-content="密码长度6~21位, 仅允许数字字母下划线@*$" data-trigger="manual" data-placement="left">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" name="remember">记住我
+                      </label>
+                    </div>
+
+                  </div>
+                  <div class="form-group has-feedback">
+                      <button type="submit" class="btn btn-primary btn-block">登录</button>
+                      <button type="reset" class="btn btn-primary btn-block">重置</button>
+                  </div>
+              </form>
+          </div>
+          <div id="menu2" class="tab-pane fade panel-body">
+            <p>快速登录暂未实现</p>
+          </div>
         </div>
       </div>
-    </div>
 
-  </div>
+    </div>
 </body>
 </html>
