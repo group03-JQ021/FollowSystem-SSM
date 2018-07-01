@@ -21,13 +21,18 @@ public interface DeptBiz {
 	 * @return
 	 */
 	List<Dept> getSubDept(int startIndex,int endIndex);
-
+	
+	/**
+	 * 模糊查询获取行数
+	 * @return
+	 */
+	int fuzzySrarchGetDeptRowNum(String deptName);
 	/**
 	 * 根据部门名称进行模糊查询
 	 * @param deptName 部门名称
 	 * @return 包含输入的部门名称的部门集合
 	 */
-	List<Dept> fuzzySearchDept(String deptName);
+	List<Dept> fuzzySearchDeptByDeptName(String deptName,int startIndex,int endIndex);
 	
 	/**
 	 * 添加新的部门
@@ -44,9 +49,22 @@ public interface DeptBiz {
 	Dept getDeptByDeptId(int deptId);
 	
 	/**
+	 * 批量删除
+	 * @param deptIdArr 多选框选择的id数组
+	 * @return 是否删除成功
+	 */
+	boolean delDept(String[] deptIdArr);
+	
+	/**
 	 * 修改部门信息
 	 * @param dept 需要修改的部门	
 	 * @return 修改是否成功
 	 */
 	boolean editDept(Dept dept);
+	
+	/**
+	 * 获取所有的部门
+	 * @return 部门集合
+	 */
+	List<Dept> getAllDept();
 }

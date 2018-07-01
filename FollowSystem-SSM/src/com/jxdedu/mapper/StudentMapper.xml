@@ -6,14 +6,75 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getStuRowNum" resultType="int">
 		select count(*) from student 
 	</select>
-	<select id="getSubStudent" resultType="Student">
+	<resultMap type="Student" id="subStudent">
+		<id column="stuId" property="stuId"/>
+		<result column="stuName" property="stuName"/>
+		<result column="sex" property="sex"/>
+		<result column="nation" property="nation"/>
+		<result column="birthday" property="birthday"/>
+		<result column="birthPlace" property="birthPlace"/>
+		<result column="marry" property="marry"/>
+		<result column="telephone" property="telephone"/>
+		<result column="idCard" property="idCard"/>
+		<result column="university" property="university"/>
+		<result column="major" property="major"/>
+		<result column="photo" property="photo"/>
+		<result column="note" property="note"/>
+		<result column="state" property="state"/>
+		<result column="classId" property="classId"/>
+		<result column="deptId" property="deptId"/>
+		<association property="dept" javaType="Dept">
+			<id column="deptId" property="deptId"/>
+			<result column="deptName" property="deptName"/>
+		</association>
+		<association property="classDate" javaType="ClassDate">
+			<id column="classId" property="classId"/>
+			<result column="className" property="className"/>
+		</association>
+	</resultMap>
+	<select id="getSubStudent" resultMap="subStudent">
 		<![CDATA[
 			select * from (
-	      		select rownum r,stu.* from (
-	            	select * from student order by stuid)
-	       		stu where rownum <=#{1}) 
+	       		select rownum r,t.* from (
+	            	select stu.*,d.deptname from student stu left join dept d 
+	            	on stu.deptid = d.deptid order by stu.stuid) t 
+	       		where rownum <=#{1}) 
 			where r>=#{0}
 		]]>
 	</select>
+	<select id="getStudentByStuId" resultMap="subStudent">
+		select stu.*,d.deptname from student stu left join dept d on stu.deptid = d.deptid where stuID=#{stuId}
+	</select>
 	
+	<insert id="addStudent" parameterType="Student">
+		 insert into student(stuId,stuName,sex,nation,birthday,birthPlace,marry,telephone,idCard,university,major,state,classId,deptId,note) 
+ 		values(seq_student.nextval,#{stuName},#{sex},#{nation},#{birthday},#{birthPlace},#{marry},#{telephone},#{idCard},#{university},#{major},#{state},#{classId},#{deptId},#{note}) 
+	</insert>
+	
+	<delete id="delStudents">
+		delete from student where stuId in (
+			<!-- collection：根据传来的参数放在上面容器里来写值，数组写array，list写list item：变量名，放每次遍历到的值 
+				separator：用循环吧容器中数据遍历出来，以是什么分隔 -->
+			<foreach collection="array" item="stuId" separator=",">
+				#{stuId}
+			</foreach>
+		) 
+	</delete>
+
+	
+	<select id="getStuByStuId" resultMap="subStudent">
+		select *
+		from student stu 
+			left join classDate cls 
+				on stu.classid = cls.classid 
+     		left join dept d  
+     			on stu.deptid = d.deptid 
+		where stuId=#{stuId}
+	</select>
+	
+	<update id="editStudent" parameterType="Student">
+		update student set stuName=#{stuName},sex=#{sex},nation=#{nation},birthday=#{birthday},birthPlace=#{birthPlace},
+							marry=#{marry},telephone=#{telephone},idCard=#{idCard},university=#{university},major=#{major},
+							state=#{state},classId=#{classId},deptId=#{deptId},note=#{note} where stuId = #{stuId}
+	</update>
 </mapper>

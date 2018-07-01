@@ -32,12 +32,15 @@
 			})
 			
 		})
+		$("#save").click(function(){
+			alert("修改成功!")
+		})
 	</script> -->
 </head>
 <body>
 <div class="container">
 		<h2>修改部门详情信息</h2>
-		<form action="getDeptByDeptId.do" method="post">
+		<form action="saveDept.do" method="post">
 			<table class="table table-striped table-bordered table-hover" border="1" align="center" cellspacing="0">
 				<tr>
 					<td>部门编号</td>
@@ -50,7 +53,7 @@
 					<td><input name="deptAddress" value="${dept.deptAddress}"></td>
 				</tr>
 			</table>
-			<input type="submit" value="保存"  class="btn btn-primary">
+			<input type="submit" value="保存" id="save" class="btn btn-primary">
 		</form>	
 	</div>
 </body>
