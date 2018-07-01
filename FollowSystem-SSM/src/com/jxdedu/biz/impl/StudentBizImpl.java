@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.jxdedu.biz.StudentBiz;
 import com.jxdedu.dao.StudentDao;
 import com.jxdedu.entity.Student;
-@Service("kb")
+@Service("studentBiz")
 public class StudentBizImpl implements StudentBiz{
 	@Autowired
 	private StudentDao studentDao;
@@ -25,6 +25,33 @@ public class StudentBizImpl implements StudentBiz{
 		List<Student> list = null;
 		list = studentDao.getSubStudent(startIndex, endIndex);
 		return list;
+	}
+
+	@Override
+	public Student getStudentByStuId(int stuId) {
+		return studentDao.getStudentByStuId(stuId);
+	}
+
+	@Override
+	public boolean addStudent(Student student) {
+		return studentDao.addStudent(student);
+	}
+
+	@Override
+	public boolean delStudents(String[] stuIdArr) {
+		int[] stuID = new int[stuIdArr.length];
+		for(int i = 0; i<stuID.length; i++) stuID[i] = Integer.parseInt(stuIdArr[i]);
+		return studentDao.delStudents(stuIdArr);
+	}
+
+	@Override
+	public Student getStuByStuId(int stuId) {
+		return studentDao.getStuByStuId(stuId);
+	}
+	
+	@Override
+	public boolean editStudent(Student student) {
+		return studentDao.editStudent(student);
 	}
 
 	/*@Override
