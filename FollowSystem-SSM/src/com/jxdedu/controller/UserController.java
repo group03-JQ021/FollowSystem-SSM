@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.jxdedu.assit.PagingStatus;
 import com.jxdedu.biz.UserBiz;
@@ -28,11 +29,14 @@ public class UserController {
     private UserBiz biz;
 
     @RequestMapping(value="/login",method=RequestMethod.POST)
-    public String login(String loginName, String loginPassword, Model model){
+    public String login(String loginName, String loginPassword,HttpSession session, Model model){
         logger.debug("用户登录:" + loginName + ":" + loginPassword + ":");
-
+        
         if (biz.isValid(loginName, loginPassword)){ // 登录成功
-            model.addAttribute("username", loginName);
+            logger.debug("登录成功:" + loginName);
+            session.setAttribute("username", loginName);
+            logger.debug("向会话"+ session.getId() + "添加属性:username=" +
+                    session.getAttribute("username"));
             return "index";
         }else { // 登录失败
             model.addAttribute("loginMsg","登录失败");
@@ -42,7 +46,7 @@ public class UserController {
     /* 因为把jsp都放在了 web-inf 下,所以用户登录实际上要用两次请求,怎么省去不必要的第一次? */
     @RequestMapping(value="/login",method=RequestMethod.GET)
     public String login(){
-        logger.debug("用户请求登录");
+        logger.debug("用户请求登录页面");
         return "login";
     }
     /**
@@ -111,8 +115,15 @@ public class UserController {
     @RequestMapping("/checkLogin")
     @ResponseBody
     public boolean doCheckLogin(String userName,String password){
-        logger.debug("验证登录:"+userName +":"+password);
+        logger.debug("验证登录凭证:"+userName +":"+password);
         return biz.isValid(userName, password);
+    }
+    
+    @RequestMapping("/logout")
+    public String doLogout(SessionStatus statues){
+        //清除登录信息
+        statues.setComplete();
+        return "login";
     }
 }
 
