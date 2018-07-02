@@ -44,9 +44,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-  <!-- 导航菜单 -->
-  <!-- 目前为空 -->
-  <nav class="navbar navbar-default"></nav>
+  <!-- 导航栏 -->
+  <jsp:include page="/WEB-INF/jsp/snippet/nav.jsp"></jsp:include>
+
   <div class="container">
 
     <!-- 页面主内容 -->

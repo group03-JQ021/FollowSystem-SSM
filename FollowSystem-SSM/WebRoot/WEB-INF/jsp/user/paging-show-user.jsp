@@ -45,40 +45,41 @@
       }
     });
 
+    $("#addUser"){
+      alert("添加用户未实现");
+    }
+    $("#delUser"){
+      alert("确定删除吗?")
+    }
+
   })
 
   </script>
 </head>
 <body>
-  <div class="container">
-    <div class="page-header">
-      <button class="btn btn-default" title="退出系统"><span class="glyphicon glyphicon-off"></span></button>
-    </div>
-    <div class="row">
-      <div class="col-md-3">
-        <nav>
-          <p>基本信息维护</p>
-          <ul class="nav">
-            <li>用户信息</li>
-            <li>权限信息</li>
-          </ul>
-        </nav>
+  <!-- 顶部导航栏 -->
+  <jsp:include page="/WEB-INF/jsp/snippet/nav.jsp"></jsp:include>
 
+  <div class="container">
+    <div class="row">
+      <!-- 侧边栏菜单 -->
+      <div class="col-md-3">
+        <jsp:include page="/WEB-INF/jsp/snippet/menu.jsp"></jsp:include>
       </div>  <!-- /.col-md-3 -->
       <div class="col-md-9">
-        <div class="input-group col-md-10">
+        <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for...">
             <div class="input-group-btn">
               <button class="btn btn-default">Go</button>
               <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><button class="btn btn-default">按姓名搜索</button></li>
-                <li><button class="btn btn-default">按ID搜索</button></li>
+                <li><a href="#" class="active">按姓名搜索</a></li>
+                <li><a href="#">按ID搜索</a></li>
               </ul>
+              <button class="btn btn-primary" title="添加新用户" id="addUser">添加</button>
+              <button class="btn btn-danger" title="删除选中用户" id="delUser">删除</button>
             </div>
         </div>
-
-
 
         <!-- 用户信息列表 -->
         <table class="table table-bordered table-striped table-hove">
@@ -97,8 +98,8 @@
           </c:forEach>
         </table>
         <!-- 分页 -->
-        <div class="pagination">
-
+        <div class="text-center">
+          <jsp:include page="/WEB-INF/jsp/snippet/pagination.jsp"></jsp:include>
         </div>
       </div> <!-- /.col-md-9 -->
     </div> <!-- /.row -->

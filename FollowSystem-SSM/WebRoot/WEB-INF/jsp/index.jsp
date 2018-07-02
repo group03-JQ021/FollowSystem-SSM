@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <div class="container text-center">
   <div class="btn-group">
-    <a class="btn btn-default" href="sysadm/pagingShow.do" >管理员页面</a>
+    <a class="btn btn-default" href="sysadm/pagingShowUser.do" >管理员页面</a>
     <a class="btn btn-default" href="getSubDept.do">部门</a>
   </div>
 
