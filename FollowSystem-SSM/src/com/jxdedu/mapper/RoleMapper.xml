@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD 
+
+ Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd 
+
+">
+<mapper namespace="com.jxdedu.dao.RoleDao">
+<resultMap type="Roletable" id="Roles">
+<id property="roleId" column="roleid"/>
+<result property="roleName" column="rolename"/>
+<result property="roleType" column="roletype"/>
+<association property="userRole" javaType="UserRoleRelationship" column="roleid">
+<result property="userId" column="userid"/>
+</association>
+</resultMap>
+<select id="getRoleByuserId" resultMap="Roles" resultType="Roletable">
+select roletable.* from roletable,UserRoleRelationship s where roletable.roleid = s.roleid and s.userid=#{userid}
+</select>
+</mapper>

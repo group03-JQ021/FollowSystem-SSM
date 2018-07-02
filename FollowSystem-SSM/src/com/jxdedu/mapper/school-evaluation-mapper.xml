@@ -20,7 +20,7 @@ EVALUATECONTENT                 VARCHAR2(200)
 	<!-- 添加一条新的评价信息 -->
  	<insert id="addSchoolEvaluation">
  		insert into SchoolEvaluation(evaluateId, stuId, evaluatePerson, evaluateScore, evaluateContent)
- 		values(seq_school_evaluation.nextval, #{stuId}, #{evaluatePerson}, 
+ 		values(seq_SchoolEvaluation.nextval, #{stuId}, #{evaluatePerson}, 
  			#{evaluateScore}, #{evaluateContent})
  	</insert>
  
@@ -45,6 +45,6 @@ EVALUATECONTENT                 VARCHAR2(200)
 	<select id="getSchoolEvaluationBystuId" resultType="SchoolEvaluation">
 	select * 
 		from schoolEvaluation
-		where evaluateId=#{stuId}
+		where stuId=#{stuId}
 	</select>
 </mapper>

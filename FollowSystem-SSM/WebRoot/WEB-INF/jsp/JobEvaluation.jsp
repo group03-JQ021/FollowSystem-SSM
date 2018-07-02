@@ -30,11 +30,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
-
+<style>
+td{
+	text-align:center
+}
+</style>
 <body>
 		<h2 align="center">金桥学院成长跟踪表</h2>
 		<p>
-		<p align="right" class="container"><input type="button" value="返回" onclick="javascript:location.href='StudentManage.do'"></p>
+		<p align="right" class="container"><input type="button" value="返回" onclick="javascript:location.href='StudentManage.do?currentpage=${currentPage}'"></p>
 	<div class="container" id="con">	
 		<table class="table table-bordered table-hover">			
 					<tr>
@@ -44,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td colspan="3">${student.sex }</td>
 						<td>民族</td>
 						<td>${student.nation}</td>
-						<td colspan="2" rowspan="4"></td>						
+						<td colspan="2" rowspan="4"><img src="${student.photo }" width="150px" height="200px" ></td>						
 					</tr>
 					<tr>
 						<td>出生年月</td>
@@ -70,6 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>备注</td>
 						<td colspan="9">${student.note }</td>
 					</tr>
+			<c:if test="${role.roleName eq '教师' ||role.roleName eq '高管'}">					
 					<tr>
 						<td colspan="10" align="center">培训学校评价</td>
 
@@ -78,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td rowspan="2">培训学校</td>
 						<td rowspan="2">班期</td>
 						<td rowspan="2">评价人</td>
-						<td colspan="6" align="center">培训期间测试成绩</td>
+						<td colspan="6">培训期间测试成绩</td>
 						<td rowspan="2">整体评价分数</td>
 					</tr>
 					<tr>
@@ -92,10 +97,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:if test="${student.classId==classes.classId }">
 							<td>${classes.className }</td>
 						</c:if>
-					</c:forEach>
-			
+					</c:forEach>		
 							<td>${schools.evaluatePerson }</td>
-	
 					<c:set var="cn" value="0"></c:set>
 							<c:forEach var="e" items="${requestScope.score}">							
 									<c:if test="${e.courseId == course[cn].courseId}">
@@ -127,16 +130,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td colspan="9" align="center">			
 								${schools.evaluateContent }</td>													
 					</tr>
+			</c:if>
+	<c:if test="${role.roleName eq '项目经理' ||role.roleName eq '高管'}">
 		<c:forEach var="i" items="${requestScope.date}">		
 					<tr>
-						<td colspan="10" align="center">${i.dateName }工作评价</td>
+						<td colspan="10">${i.dateName }工作评价</td>
 
 					</tr>
 					<tr>
 						<td rowspan="2">项目</td>
 						<td rowspan="2">员工部门</td>
 						<td rowspan="2">评价人</td>
-						<td colspan="6" align="center">评价分项</td>
+						<td colspan="6" >评价分项</td>
 						<td rowspan="2">整体评价分数</td>
 					</tr>
 					<tr>
@@ -192,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:if test="${k.dateId==i.dateId }">
 								<td>评价(包括主要
 								<br>优点及缺陷)</td>							
-								<td colspan="9" align="center">${k.jobEvaluateContent}</td>
+								<td colspan="9">${k.jobEvaluateContent}</td>
 								<c:set var="list" value="false"></c:set>
 							</c:if>	
 						
@@ -200,11 +205,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<c:if test="${list }">
 								<td>评价(包括主要
 								<br>优点及缺陷)</td>
-							<td colspan="9" align="center"></td>									
+							<td colspan="9"></td>									
 					</c:if>
 					</tr>
-						</c:forEach>		
-				
+			</c:forEach>		
+	</c:if>
 		</table>
 		
 	</div>

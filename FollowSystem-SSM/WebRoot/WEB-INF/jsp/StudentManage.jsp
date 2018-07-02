@@ -27,20 +27,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<c:if test="${role.roleName eq '项目经理'}">
 <style type="text/css">
 .theadColor {
 	background-color: #99ccff;
 }
 </style>
-
+</c:if>
 </head>
 
 <body>
 	<div class="container">
-		<div>
+		<div align="center">
 			<h2>金桥学院信息表</h2>
-			<input type="text" placeholder="请输入学员姓名" name="">
-			<button class="btn btn-primary ">查询</button>
+			<input type="text" placeholder="请输入学员姓名" id="stuname">
+			<button class="btn btn-primary " id="search">查询</button>
 		</div>
 		<div>
 			<table class="table table-bordered table-hover" border="1">
@@ -88,16 +89,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<td>${e.score}</td>									
 									</c:if>
 									<c:if test="${e.courseId != course[cn].courseId}">
-									<td>待填写</td>									
-									</c:if>
+									<c:choose>
+										<c:when test="${role.roleName eq '教师' }">
+											<td><a href="setScore.do?stuid=${s.stuId}&courseid=${course[cn].courseId}">待填写</a></td>
+										</c:when>
+										<c:otherwise>
+											<td>待填写</td>	
+										</c:otherwise>
+								</c:choose>																	
+								</c:if>
 									<c:set var="cn" value="${cn+1}"></c:set>
 									</c:forEach>
 									</c:if>
 									<c:set var="cn" value="${cn+1}"></c:set>
 								</c:if>
 							</c:forEach>
-							<c:forEach begin="${cn+1}" end="6">
-								<td>待填写</td>
+							<c:forEach begin="${cn+1}" end="6" varStatus="status">
+								<c:choose>
+										<c:when test="${role.roleName eq '教师' }">
+											<td><a href="setScore.do?stuid=${s.stuId}&courseid=${status.current}">待填写</a></td>
+										</c:when>
+										<c:otherwise>
+											<td>待填写</td>	
+										</c:otherwise>
+								</c:choose>	
 							</c:forEach>
 							
 							<c:set var="cn" value="${0}"></c:set>
@@ -109,7 +124,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</c:if>
 							</c:forEach>
 							<c:if test="${list }">
-								<td>待填写</td>
+							<c:choose>
+								<c:when test="${role.roleName eq '教师' }">
+									<td><a href="setSchoolScore.do?stuid=${s.stuId}">待评价</a></td>
+								</c:when>
+								<c:otherwise>
+									<td>待评价</td>
+								</c:otherwise>
+							</c:choose>
+
 							</c:if>
 							<%--得到每年对应的评价总分 --%>
 							<c:forEach var="j" items="${ requestScope.j}">
@@ -119,9 +142,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</c:if>
 							</c:forEach>
 							<%--对未评价的年份设置为待评价 --%>
-							<c:forEach begin="${cnt+1}" end="${ends}" varStatus="status">
-								<td><a
-									href="AddJobEvaluation.jsp?stuid=${s.stuId}&dateid=${status.count+cnt}">待评价</a></td>
+							<c:forEach begin="${cnt+1}" end="${ends}" varStatus="status">							
+								<c:choose>
+									<c:when test="${role.roleName eq '项目经理' }">
+									<td>
+									<a href="redirection.do?stuid=${s.stuId}&dateid=${status.count+cnt}">待评价
+									</a></td>
+									</c:when>
+									<c:otherwise>
+									<td>待评价</td>
+									</c:otherwise>
+								</c:choose>
+									
 							</c:forEach>
 							<c:set var="cnt" value="${0}"></c:set>
 						</tr>
@@ -152,4 +184,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 		</div>
 </body>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#search").click(function(){
+		if($("#stuname").val()==""){
+			location.href="StudentManage.do?currentpage=1"
+		}else{
+			location.href="getStudentByName.do?name="+encodeURIComponent($("#stuname").val());
+		}
+		
+	});
+});
+
+</script>
 </html>

@@ -47,4 +47,5 @@ public class SchoolEvaluationBizImpl implements SchoolEvaluationBiz{
 		return dao.getSchoolEvaluationBystuId(stuId);
 	}
 
+
 }

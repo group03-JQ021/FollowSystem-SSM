@@ -45,5 +45,5 @@ public interface CourseDao {
 	 * @param classId 课程id
 	 * @return 课程信息
 	 */
-	Course getCourseByClassId(int classId);
+	Course getCourseByCourseId(Integer courseid);
 }

@@ -12,5 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from users
 		where username=#{userName} and pwd=#{pwd}
 	</select>
-	
+	<select id="getUserByName" resultType="int">
+	select userId from users where username=#{username}
+	</select>
 </mapper>

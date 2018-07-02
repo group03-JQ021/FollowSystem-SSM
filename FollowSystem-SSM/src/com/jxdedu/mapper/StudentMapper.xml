@@ -79,13 +79,8 @@ PUBLIC "-//mybatis.org//DTD
 	 select stuId,stuName,sex,student.university,birthplace
 	from student
 </select>
-<select id="getOneStudentByName" resultType="Student" resultMap="StudentManageList">
-select student.stuname,student.sex,student.university,student.birthplace,course.coursename,course.coursestate,score.score,
-	SchoolEvaluation.evaluatescore,JobEvaluation.evaluatescore,JobEvaluation.totalscore, EvaluateDate.datename  
-from student,course,score,SchoolEvaluation,JobEvaluation,EvaluateDate
-where student.stuid=score.stuid and score.courseid=course.courseid and 
-student.stuid=SchoolEvaluation.stuid and student.stuid=JobEvaluation.stuid and
- JobEvaluation.dateid=EvaluateDate.dateid and student.stuname like '%${value}%'
+<select id="getOneStudentByName" resultType="Student" >
+select * from student where stuName like '%${value}%'
 </select>
 <select id="getRowNum" resultType="integer" >
 select count(*) from student

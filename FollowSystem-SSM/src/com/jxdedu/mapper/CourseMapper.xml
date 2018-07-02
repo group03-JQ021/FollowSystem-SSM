@@ -7,4 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="getAllCourse" resultType="Course">
 	select courseName ,courseId from course order by courseId
 </select>
+<select id="getCourseByCourseId" resultType="Course">
+select * from course where courseId=#{courseid}
+</select>
 </mapper>

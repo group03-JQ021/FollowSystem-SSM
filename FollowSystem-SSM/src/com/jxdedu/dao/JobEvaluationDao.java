@@ -17,7 +17,9 @@ public interface JobEvaluationDao {
      * @param evaluation    评价信息
      * @return  true,如果添加成功; false,如果添加失败
      */
-    boolean addJobEvaluation(List<JobEvaluation> evaluation);
+    boolean addJobEvaluation(int dateId,int stuId, int optionId,String optionName,
+			 
+			double totalScore,String jobEvaluateContent,double score);
     /**
      * 更新一条评价记录.
      * 根据给定评价记录的id,更新其它字段;
@@ -56,4 +58,11 @@ public interface JobEvaluationDao {
      * @return
      */
     List<JobEvaluation> getJobEvaluation(int stuid);
+    /**
+     * 删除评价
+     * @param dateId
+     * @param stuId
+     * @return
+     */
+    boolean delJobEvaluation(int dateId,int stuId);
 }

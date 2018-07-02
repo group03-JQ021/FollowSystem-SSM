@@ -50,9 +50,9 @@ public class CourseBizImpl implements CourseBiz{
 	}
 
 	@Override
-	public Course getCourseByClassId(int classId) {
+	public Course getCourseByCourseId(int courseid) {
 		// TODO Auto-generated method stub
-		return dao.getCourseByClassId(classId);
+		return dao.getCourseByCourseId(courseid);
 	}
 
 }

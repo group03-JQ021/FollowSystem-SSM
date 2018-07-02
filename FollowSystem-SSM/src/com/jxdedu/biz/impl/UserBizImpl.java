@@ -29,4 +29,10 @@ public class UserBizImpl implements UserBiz {
                 && !"禁用".equals(user.getFlag()));
     }
 
+	@Override
+	public int getUserByName(String username) {
+		// TODO Auto-generated method stub
+		return dao.getUserByName(username);
+	}
+
 }

@@ -43,8 +43,8 @@ public interface RoleDao {
 	int getRowNum();
 	/**
 	 * 根据角色id查询角色信息
-	 * @param roleid 角色id
+	 * @param userid 角色id
 	 * @return 角色信息
 	 */
-	Course getRoleByRoleId(int roleid);
+	Roletable getRoleByuserId(int userid);
 }

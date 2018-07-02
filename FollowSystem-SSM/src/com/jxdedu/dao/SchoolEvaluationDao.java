@@ -44,6 +44,10 @@ public interface SchoolEvaluationDao {
      * @return  评价信息总数. 如果查询失败,则返回 -1.
      */
     int     getTotalCount();
-    
+    /**
+     * 通过学生id查找信息
+     * @param stuId
+     * @return
+     */
     SchoolEvaluation  getSchoolEvaluationBystuId(int stuId);
 }

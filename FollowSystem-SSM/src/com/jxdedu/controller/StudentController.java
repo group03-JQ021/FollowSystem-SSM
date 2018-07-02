@@ -1,14 +1,14 @@
 package com.jxdedu.controller;
 
 import java.util.List;
-import java.util.Map;
+
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.jxdedu.biz.CourseBiz;
@@ -27,7 +27,7 @@ import com.jxdedu.entity.Score;
 import com.jxdedu.entity.Student;
 
 @Controller
-@SessionAttributes({"option","date","score","j","course","school"})
+@SessionAttributes({"option","date","score","j","course","school","currentPage"})
 public class StudentController {
 	@Resource(name="student")
 	private StudentBiz stus;
@@ -44,7 +44,7 @@ public class StudentController {
 	@Resource(name="school")
 	private SchoolEvaluationBiz School;
 	@RequestMapping("/StudentManage")
-	public String  getStudent(Model model){
+	public String  getStudent(int currentpage,Model model){
 		List<Student> stu = stus.getAllStudent();
 		List<Score> score = sc.getAllScore();
 		List<JobEvaluation> j = job.getAllJobEvaluation();
@@ -59,7 +59,8 @@ public class StudentController {
 		model.addAttribute("course",course);
 		model.addAttribute("option", option);
 		model.addAttribute("school", school);
-		return "redirect:getSubStudent.do?currentPage=1";
+		model.addAttribute("currentPage", currentpage);
+			return "redirect:getSubStudent.do";
 	}
 	 @RequestMapping("/getSubStudent")
 	    public String doGetSubKids(int currentPage,Model model){
@@ -85,5 +86,23 @@ public class StudentController {
 			 model.addAttribute("currentPage", currentPage);
 			 model.addAttribute("pageCount", pageCount);
 	    	return "StudentManage";
+	 }
+	 @RequestMapping("getStudentByName")
+	 public String doGetStudentByName(String name, Model model){
+		 List<Student> stu = stus.getOneStudentByName(name);
+			List<Score> score = sc.getAllScore();
+			List<JobEvaluation> j = job.getAllJobEvaluation();
+			List<EvaluateDate> date = ed.showEvaluateDate();
+			List<JobEvaluateOption> option = p.getAllJobEvaluateOption();
+			List<Course> course = cou.getAllCourse();
+			List<SchoolEvaluation> school = School.getAllSchoolEvaluation();
+			model.addAttribute("stu", stu);
+			model.addAttribute("score", score);
+			model.addAttribute("j", j);
+			model.addAttribute("date", date);
+			model.addAttribute("course",course);
+			model.addAttribute("option", option);
+			model.addAttribute("school", school);
+		 return "StudentManage";
 	 }
 }

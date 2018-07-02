@@ -24,10 +24,17 @@ PUBLIC "-//mybatis.org//DTD
 		<result property="optionState" column="optionstate"/>
 	</association>
  </resultMap> -->
-<insert id="addJobEvaluation" parameterType="JobEvaluation">
+<!-- <insert id="addJobEvaluation" parameterType="java.util.List">
+	
 	insert into JobEvaluation
 	values(#{dateId},#{stuId},#{optionId},#{evaluatePerson},#{evaluateScore},#{totalScore},#{jobEvaluateContent})
+</insert> -->
+
+<insert id="addJobEvaluation" >	
+	insert into JobEvaluation
+	values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
 </insert>
+
 <select id="showJobEvaluations" resultType="JobEvaluation">
 select dateId,evaluateScore from JobEvaluation where
 stuId='${value}' order by dateId
@@ -39,4 +46,8 @@ group by dateId,evaluatePerson,jobEvaluateContent,totalScore order by dateId
 <select id="getAllJobEvaluation" resultType="JobEvaluation">
 select totalScore,dateId,stuId from JobEvaluation group by totalScore,dateId,stuId order by stuId,dateId
 </select>
+
+<delete id="delJobEvaluation">
+delete from JobEvaluation where dateId=#{dateId} and stuId=#{stuId} 
+</delete>
 </mapper>

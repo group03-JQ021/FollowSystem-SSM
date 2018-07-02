@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jxdedu.biz.JobEvaluationBiz;
 import com.jxdedu.dao.JobEvaluationDao;
@@ -13,9 +14,11 @@ public class JobEvaluationBizImpl implements JobEvaluationBiz {
 	@Autowired
 	private JobEvaluationDao job;
 	@Override
-	public boolean addJobEvaluation(List<JobEvaluation> evaluation) {
+	public boolean addJobEvaluation(int dateId,int stuId, int optionId,String optionName,
+			 
+			double totalScore,String jobEvaluateContent,double score) {
 		// TODO Auto-generated method stub
-		return job.addJobEvaluation(evaluation);
+		return job.addJobEvaluation(dateId, stuId, optionId, optionName, totalScore, jobEvaluateContent, score);
 	}
 
 	@Override
@@ -52,6 +55,12 @@ public class JobEvaluationBizImpl implements JobEvaluationBiz {
 	public List<JobEvaluation> getJobEvaluation(int stuid) {
 		// TODO Auto-generated method stub
 		return job.getJobEvaluation(stuid);
+	}
+
+	@Override
+	public boolean delJobEvaluation(int dateId, int stuId) {
+		// TODO Auto-generated method stub
+		return job.delJobEvaluation(dateId, stuId);
 	}
 
 }
