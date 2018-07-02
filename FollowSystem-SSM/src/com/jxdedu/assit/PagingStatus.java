@@ -105,7 +105,6 @@ public class PagingStatus{
      */
     private void validation(){
         if (flag) return;
-        logger.debug("自洽处理...");
         // pageCount
         pageCount = totalCount/pageSize;
         if (totalCount % pageSize != 0){ pageCount++;}
@@ -135,7 +134,7 @@ public class PagingStatus{
         }
         
         flag = true;
-        logger.debug("完成:"+this);
+        logger.debug("参数计算完成:"+this);
     }
     
     public int getPageCount() {
