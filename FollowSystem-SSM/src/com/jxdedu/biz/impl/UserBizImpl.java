@@ -46,7 +46,8 @@ public class UserBizImpl implements UserBiz {
 
     @Override
     public List<User> getByRange(int lowerBound,int upperBound){
-        if (lowerBound < upperBound){
+        logger.debug("分页查询:区间[" + lowerBound + "," + upperBound + ")");
+        if (lowerBound >= upperBound){
             logger.warn("检测到非法分页查询区间:[" + lowerBound + "," + upperBound + ")");
         }
         Map<String,Integer> range = new HashMap<String,Integer>();
