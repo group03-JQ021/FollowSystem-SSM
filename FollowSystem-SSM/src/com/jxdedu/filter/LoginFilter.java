@@ -32,7 +32,8 @@ public class LoginFilter implements Filter{
         }else {
             logger.debug("验证失败,重定向到登录页面.");
             //request.getRequestDispatcher("login.do").forward(request, response);
-            ((HttpServletResponse) response).sendRedirect("login.do");
+
+            ((HttpServletResponse) response).sendRedirect(req.getContextPath() + "/login.do");
         }
     }
     private boolean check(HttpServletRequest request){

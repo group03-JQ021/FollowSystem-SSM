@@ -53,20 +53,20 @@ public class UserController {
      * 用户信息列表, 当前,用户还不能修改分页大小.
      * @param model
      * @return
-     */
-    @RequestMapping("/sysadm/pagingShow")
+     */             //pagingShowUser
+    @RequestMapping("/pagingShowUser")
     public String pagingShow(Integer currentPage,HttpSession session, Model model){
         String psKey = "pagingStatus";
         PagingStatus ps = (PagingStatus)session.getAttribute(psKey);
-
+        
         int totalCount = biz.getTotalCount();   // 数据库中当前记录总数
+        
 
         /* 第一次进入分页界面, */
         if (ps == null){
             // 默认,当前页面 1, 分页大小 5,记录总数为现场查询的结果.
             ps = new PagingStatus(biz.getTotalCount());
             session.setAttribute(psKey, ps);
-            currentPage = ps.getCurrentPage();
         }
 
         /* 当前页号 */
@@ -98,7 +98,7 @@ public class UserController {
 
         /* 向视图层传递数据 */
         model.addAttribute("list",list);
-        return "user/paging-show";
+        return "user/paging-show-user";
     }
 
     /**
