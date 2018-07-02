@@ -16,45 +16,11 @@
     table tr *{
       text-align: center;
     }
+
   </style>
+  <script type="text/javascript" src="js/paging-show-user.js"></script>
 
-  <script type="text/javascript">
-  $(function () {
 
-    // 详情
-    $("button[name='detail']").click(function(){
-      // 功能未实现
-      alert("显示用户编号为"+$(this).text() + "的用户详情(功能尚未实现)");
-    });
-
-    // 全选/全不选
-    // 全选和取消全选的复选框
-    $("#userIdHook").click(function(){
-      var val = $(this).prop("checked");
-      $(":checkbox[name=userIds]").each(function(){
-        $(this).prop("checked", val);
-      });
-    });
-
-    //
-    $(":checkbox[name=userIds]").click(function(){
-      if ($(":checkbox[name=userIds]").length == $(":checked[name=userIds]").length){
-        $("#userIdHook").prop("checked", true);
-      }else{
-        $("#userIdHook").prop("checked", false);
-      }
-    });
-
-    $("#addUser"){
-      alert("添加用户未实现");
-    }
-    $("#delUser"){
-      alert("确定删除吗?")
-    }
-
-  })
-
-  </script>
 </head>
 <body>
   <!-- 顶部导航栏 -->
@@ -68,14 +34,19 @@
       </div>  <!-- /.col-md-3 -->
       <div class="col-md-9">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
+            <input type="text" class="form-control" placeholder="按姓名(模糊)搜索..." id="searchInput" >
+
+            <!-- 模糊搜索 -->
             <div class="input-group-btn">
-              <button class="btn btn-default">Go</button>
+              <button class="btn btn-default" id="doSearch" url="fuzzySearchByName.do">Go</button>
               <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="#" class="active">按姓名搜索</a></li>
-                <li><a href="#">按ID搜索</a></li>
+              <ul class="dropdown-menu" id="searchOpt">
+                <li><a href="javascript:void(0)" class="active" url="fuzzySearchByName.do">按姓名(模糊)搜索</a></li>
+                <li><a href="javascript:void(0)" url="searchById.do">按ID(精准)搜索</a></li>
+                <li><a href="javascript:void(0)" url="fuzzySearchByTelePhone.do">按手机号(模糊)搜索</a></li>
+                <li><a href="javascript:void(0)" url="fuzzySearchByEamail">按电子邮件(模糊)搜索</a></li>
               </ul>
+              <!-- 增删操作 -->
               <button class="btn btn-primary" title="添加新用户" id="addUser">添加</button>
               <button class="btn btn-danger" title="删除选中用户" id="delUser">删除</button>
             </div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="url" value="${url==null?'pagingShowUser.do':url}"></c:set>
 <nav aria-label="Page navigation">
   <ul class="pagination pagination-lg">
     <!-- 上一页 -->
@@ -7,7 +8,7 @@
     <c:choose>
       <c:when test="${pagingStatus.currentPage!=1}">
         <li>
-          <a href="pagingShowUser.do?currentPage=${pagingStatus.currentPage - 1}" aria-label="Previous">
+          <a href="${url}?currentPage=${pagingStatus.currentPage - 1}&${query}" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
@@ -25,7 +26,7 @@
       <c:choose>
         <c:when test="${i!=pagingStatus.currentPage}">
            <li>
-            <a href="pagingShowUser.do?currentPage=${i}" aria-label="Previous">${i}</a>
+            <a href="${url}?currentPage=${i}&${query}" aria-label="Previous">${i}</a>
           </li>
         </c:when>
         <c:otherwise>
@@ -43,7 +44,7 @@
     <c:choose>
       <c:when test="${pagingStatus.currentPage != pagingStatus.pageCount}">
         <li>
-          <a href="pagingShowUser.do?currentPage=${pagingStatus.currentPage + 1}" aria-label="Previous">
+          <a href="${url}?currentPage=${pagingStatus.currentPage + 1}&${query}" aria-label="Previous">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>

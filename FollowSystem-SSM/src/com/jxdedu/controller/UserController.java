@@ -20,7 +20,7 @@ import com.jxdedu.biz.UserBiz;
 import com.jxdedu.entity.User;
 
 @Controller
-@SessionAttributes({"username", "pagingStatus"})
+@SessionAttributes({"username"})
 public class UserController {
 
     private Logger logger = Logger.getLogger(UserController.class.getName());
