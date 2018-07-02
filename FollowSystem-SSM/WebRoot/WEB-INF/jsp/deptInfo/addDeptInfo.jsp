@@ -38,6 +38,13 @@
 				location.href="getSubDept.do?pageNum=${deptCurrentPage}"
 			})
 		})
+		
+		$(function(){
+			$("#addDept").click(function(){
+				alert("您已添加成功!")
+				/* setTimeout(function(){alert('您已添加成功!')},4000); */
+			})
+		})
 	</script>
 </head>
 <body>
@@ -55,7 +62,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="submit" value="添加" class="btn btn-primary">&nbsp;&nbsp;
+						<input type="submit" value="添加" class="btn btn-primary"id="addDept">&nbsp;&nbsp;
 						<a class="btn btn-primary" id="backDeptInfoList">返回</a>
 					</td>
 				</tr>
@@ -63,6 +70,6 @@
 			
 		</form>
 	</div>
-		${addMsg}
+		
 </body>
 </html>

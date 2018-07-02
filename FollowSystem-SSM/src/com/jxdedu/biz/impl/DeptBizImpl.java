@@ -41,11 +41,26 @@ public class DeptBizImpl implements DeptBiz {
 	}
 	
 	@Override
+	public int fuzzySrarchGetDeptRowNum(String deptName) {
+		int fsRowNum = 0;
+		fsRowNum = deptDao.fuzzySrarchGetDeptRowNum(deptName);
+		return fsRowNum;
+	}
+	@Override
+	public List<Dept> fuzzySearchDeptByDeptName(String deptName,int startIndex,int endIndex) {
+		List<Dept> list = null;
+		if(deptName==null){
+			deptName="";
+		}
+		list = deptDao.fuzzySearchDeptByDeptName(deptName,startIndex, endIndex);
+		return list;
+	}
+	/*@Override
 	public List<Dept> fuzzySearchDept(String deptName) {
 		List<Dept> list = null;
 		list = deptDao.fuzzySearchDept(deptName);
 		return list;
-	}
+	}*/
 	
 	@Override
 	public boolean addDept(Dept dept) {
@@ -60,8 +75,20 @@ public class DeptBizImpl implements DeptBiz {
 	}
 	
 	@Override
+	public boolean delDept(String[] deptIdArr) {
+		return deptDao.delDept(deptIdArr);
+	}
+	
+	@Override
 	public boolean editDept(Dept dept) {
 		return deptDao.editDept(dept);
 	}
+
+	@Override
+	public List<Dept> getAllDept() {
+		return deptDao.getAllDept();
+	}
+	
+	
 
 }

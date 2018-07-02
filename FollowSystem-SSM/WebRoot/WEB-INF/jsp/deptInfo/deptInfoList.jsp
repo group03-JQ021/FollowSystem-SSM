@@ -35,11 +35,27 @@ table{
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
+		//查询id
+		$("#searchDeptByDeptId").click(function(){
+			/* alert($("#search").val()); */
+			
+			var reg = /^[0-9]*$/;
+			if(!reg.test($("#search").val())){
+				alert("请您正确输入部门编号!!!");
+				location.href="getSubDept.do";
+			} else {
+				var deptId = $("#search").val();
+				if (!deptId){
+					deptId = -1;
+				}
+				location.href="searchDeptByDeptId.do?deptId=" + deptId;
+			}
+		}); 
 		//模糊查询
-		$("#fuzzySearchDept").click(function(){
-			var deptId = $("#search").val();
-			location.href="fuzzySearchDept.do?deptName=" + deptId;
-		});
+		/* $("#searchDeptByDeptId").click(function(){
+			var deptName = $("#search").val();
+			location.href="fuzzySearchDeptByDeptName.do?deptName=" + deptName+"&pageNum=" +1;
+		}); */
 		
 		$("#allSel").click(function(){
 			if($(this).is(':checked')){
@@ -59,22 +75,47 @@ table{
 			}
 		});
 		
+		 $("#delDept").click(function(){
+			 var delArr = new Array();
+		 	$("[name='subSel']:checked").each(function(){
+		 		delArr.push($(this).val());
+		 	});
+		 	var flag = confirm("确定删除?");
+		 	if(flag){
+			 	location.href="delDept.do?deptIdArr="+delArr;
+		 	}
+		})
+		
 		//选择页数监听
 		$("#selPage").change(function(){
 			location.href="getSubDept.do?pageNum="+$(this).val();
 		})
+		
+		
 	}) 
 </script>
 </head>
 
 <body>
+<div style="width: 100% ;height:700px;"  >
+	<div style="float: left;">
+		<dl>
+			<dt><h3>基本信息维护</h3></dt>
+			<dd><h5>工作评价分项信息</h5></dd>
+			<dd><h5>课程信息</h5></dd>
+			<dd><h5><a href="getSubDept.do">组织部门信息</a></h5></dd>
+			<dd><h5><a href="getSubStudent.do">学员基本信息</a></h5></dd>
+			<dd><h5>培训成绩信息</h5></dd>
+		</dl>
+		
+	</div>
 	<div class="container">
 		<h2>组织部门信息列表</h2>
 		<input type="text" placeholder="请输入部门编号" id="search" name="${search}"> 
-		<a class="btn btn-primary" id="fuzzySearchDept">查询</a>&nbsp;&nbsp;
+		<a class="btn btn-primary" id="searchDeptByDeptId">查询</a>&nbsp;&nbsp;
 		<a class="btn btn-primary" href="getAddDeptPage.do">添加</a>&nbsp;&nbsp;
-		<a class="btn btn-danger" id="">删除</a>&nbsp;&nbsp;
-		
+		<a class="btn btn-danger"  id="delDept" >删除</a>&nbsp;&nbsp;
+		<!-- <button type="button" class="btn btn-danger" data-toggle="modal" id="delDept" data-target="#myModal">&nbsp;&nbsp; -->
 		<table class="table table-striped table-bordered table-hover" align="center" border="1" cellspacing="0">
 			<tr>
 				<td><input type="checkbox" id="allSel">全选</td>
@@ -102,13 +143,28 @@ table{
 			
 		</table>
 		<a href="getSubDept.do?pageNum=1">首页</a> 
-		<a href="getSubDept.do?pageNum=${prePage }">上一页</a>
+		<c:if test="${deptCurrentPage>1}">
+			<a href="getSubDept.do?pageNum=${prePage }">上一页</a>
+		</c:if>
+		<c:if test="${deptCurrentPage<=1}">
+			<a href="javascript:void(0)">上一页</a>
+		</c:if>
 		<select id="selPage">
 			<c:forEach var="i" begin="1" end="${pageCount}" step="1" >
 				<option value="${i}" ${i == deptCurrentPage?"selected":""} >${ i}/${pageCount}</option>
 			</c:forEach>
 		</select>
-		<a href="getSubDept.do?pageNum=${nextPage}">下一页</a> 
+		<c:if test="${deptCurrentPage<pageCount}">
+			<a href="getSubDept.do?pageNum=${nextPage}">下一页</a> 
+		</c:if>
+		<c:if test="${deptCurrentPage>=pageCount}">
+			<a href="javascript:void(0)">下一页</a> 
+		</c:if>
 		<a href="getSubDept.do?pageNum=${pageCount }">末页</a>
 	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+	${delMsg}
+</div>
 </body>
+</html>

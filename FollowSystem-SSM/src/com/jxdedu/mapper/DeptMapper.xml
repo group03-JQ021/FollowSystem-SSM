@@ -17,14 +17,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-	<select id="fuzzySearchDept" resultType="Dept">
+	
+	<select id="fuzzySrarchGetDeptRowNum"  resultType="int">
+		select count(*) from dept where deptName like '%'||#{deptName}||'%'
+	</select>
+	
+	<select id="fuzzySearchDeptByDeptName" resultType="Dept">
+	<![CDATA[
+		select * from (
+				select rownum r,t.* from (
+					select * from Dept 
+					where deptName like '%'||#{0}||'%'
+					order by deptid) t 
+				where rownum<=#{2}) 
+			where r>=#{1}
+	]]>
+	</select>
+	
+	<!-- <select id="fuzzySearchDept" resultType="Dept">
 		select * from dept
 		<where>
 			<if test="_parameter!=null and _parameter=''">
 				deptName like '%'||#{deptName}||'%'
 			</if>
 		</where>
-	</select>
+	</select> -->
 	
 	<insert id="addDept" parameterType="Dept">
 		insert into dept(deptId,deptName,deptAddress) 
@@ -34,6 +51,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getDeptByDeptId" resultType="Dept">
 		select * from dept where deptid=#{deptId}
 	</select>
+	
+	<delete id="delDept">
+		delete from dept where deptId in(
+			<!-- collection：根据传来的参数放在上面容器里来写值，数组写array，list写list item：变量名，放每次遍历到的值 
+				separator：用循环吧容器中数据遍历出来，以是什么分隔 -->
+			<foreach collection="array" item="deptId" separator=",">
+				#{deptId}
+			</foreach>
+		)
+	</delete>
 	
 	<update id="editDept" parameterType="Dept">
 		update dept 
