@@ -6,20 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%-- 引入 jQuery 和 Bootstrap --%>
+<jsp:include page="/WEB-INF/jsp/snippet/ref.jsp"></jsp:include>
 <title>学员基本信息列表</title>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="js/student/studentInfoList.js"></script>
 
- <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script
-	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous">
-</script>
 <style type="text/css">
 	div.container {
 		width: 600px;
@@ -30,7 +21,7 @@
 		width:500px;
 	}
 </style>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(function(){
 		if("${list}"==""){
 			alert("您输入的学员编号不存在,获取不到数据!!!");
@@ -85,9 +76,20 @@
 		})
 		
 	})
-</script>
+</script> -->
 </head>
 <body>
+<div style="width: 100% ;height:700px;"  >
+	<div style="float: left;">
+		<dl>
+			<dt><h3>基本信息维护</h3></dt>
+			<dd><h5><a href="getSubJobEO.do">工作评价分项信息</a></h5></dd>
+			<dd><h5><a href="getSubCourse.do">课程信息</a></h5></dd>
+			<dd><h5><a href="getSubDept.do">组织部门信息</a></h5></dd>
+			<dd><h5><a href="getSubStudent.do">学员基本信息</a></h5></dd>
+			<!-- <dd><h5>培训成绩信息</h5></dd> -->
+		</dl>
+	</div>
 	<div class="container">
 		<h3>学员基本信息列表</h3>
 		<form>
@@ -143,5 +145,6 @@
 			<a href="getSubStudent.do?pageNum=${pageCount}">末页</a>
 		</form>
 	</div>
+</div>
 </body>
 </html>

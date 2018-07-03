@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">	
+<mapper namespace="com.jxdedu.dao.JobEODao">
+	<select id="getJEORowNum" resultType="int">
+		select count(*) from Jobevaluateoption
+	</select>
+	
+	<select id="getSubJobEO" resultType="JobEvaluateOption">
+		<![CDATA[
+			select * from (
+        		select rownum r,t.* from (
+              		select * from Jobevaluateoption order by optionId) t 
+        		where rownum <= #{1}) 
+        	where r>=#{0}
+		]]>
+	</select>
+	
+	<select id="getJEOByOptionId" resultType="JobEvaluateOption">
+		select * from Jobevaluateoption where optionId=#{optionId}
+	</select>
+	
+	<insert id="addJobEvaluateOption" parameterType="JobEvaluateOption">
+		insert into jobevaluateoption(optionId,optionName,optionState) 
+					values(seq_jobeo.nextval,#{optionName},#{optionState})
+	</insert>
+	
+	<update id="editJobEvaluateOption" parameterType="JobEvaluateOption">
+		update JobEvaluateOption 
+		set optionName=#{optionName},optionState=#{optionState} where optionId=#{optionId}
+	</update>
+	
+	<delete id="delJobEvaluateOption">
+		delete from JobEvaluateOption where optionId in(
+			<foreach collection="array" item="optionId" separator=",">
+				#{optionId}
+			</foreach>
+		)
+	</delete>
+</mapper>

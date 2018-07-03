@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<%-- 引入 jQuery 和 Bootstrap --%>
   	<jsp:include page="/WEB-INF/jsp/snippet/ref.jsp"></jsp:include>
-	<title>添加部门详细信息</title>
+	<title>添加评价分项信息</title>
 	
 	<style type="text/css">
 		div.container {
@@ -15,7 +15,7 @@
 		}
 		table{
 			margin-top:20px;
-			width:250px;
+			width:300px;
 		}
 		table tr{
 			margin-top:20px;
@@ -24,13 +24,7 @@
 	</style>
 	<script type="text/javascript">
 		$(function(){
-			$("#backDeptInfoList").click(function(){
-				location.href="getSubDept.do?pageNum=${deptCurrentPage}"
-			})
-		})
-		
-		$(function(){
-			$("#addDept").click(function(){
+			$("#addjobEO").click(function(){
 				var cnt = 0;
 				var tat = $("td input").length;
 				$("td input").each(function(){if ($(this).val()!="")cnt++;});
@@ -40,29 +34,32 @@
 					return false;
 				}
 				alert("您已添加成功!")
+				/* setTimeout(function(){alert('您已添加成功!')},4000); */
+			})
+			$("#backJobEOInfoList").click(function(){
+				location.href = "getSubJobEO.do?pageNum=${jobEOCurrentPage}";
 			})
 		})
+		
 	</script>
 </head>
 <body>
 	<div class="container">
-		<h3>添加部门信息</h3>
-		<form action="addDept.do">
+		<h3>添加评价分项信息</h3>
+		<form action="addJobEO.do">
 			<table class="table table-striped table-bordered table-hover" align="center" border="1" cellspacing="0">
 				<tr>
-					<td>部门名称：</td>
-					<td><input type="text" name="deptName"></td>
+					<td>评价分项名称：</td>
+					<td><input type="text" name="optionName"></td>
 				</tr>
 				<tr>
-					<td>部门地址：</td>
-					<td><input type="text" name="deptAddress"></td>
+					<td>评价分项状态：</td>
+					<td><input type="text" name="optionState"></td>
 				</tr>
-				
 			</table>
-			<input type="submit" value="添加" id="addDept" class="btn btn-primary"id="addDept">&nbsp;&nbsp;
-			<a class="btn btn-primary" id="backDeptInfoList">返回</a>
+			<input type="submit" value="添加" class="btn btn-primary" id="addjobEO">&nbsp;&nbsp;
+			<a class="btn btn-primary" id="backJobEOInfoList">返回</a>
 		</form>
 	</div>
-		
 </body>
 </html>

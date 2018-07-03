@@ -6,7 +6,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<%-- 引入 jQuery 和 Bootstrap --%>
   	<jsp:include page="/WEB-INF/jsp/snippet/ref.jsp"></jsp:include>
-	<title>添加部门详细信息</title>
+	<title>添加课程信息</title>
+	<!-- <script src="js/course/addCourseInfo.js"></script> -->
 	
 	<style type="text/css">
 		div.container {
@@ -24,13 +25,13 @@
 	</style>
 	<script type="text/javascript">
 		$(function(){
-			$("#backDeptInfoList").click(function(){
-				location.href="getSubDept.do?pageNum=${deptCurrentPage}"
+			$("#backCourseInfoList").click(function(){
+				location.href="getSubCourse.do?pageNum=${courseCurrentPage}"
 			})
 		})
 		
 		$(function(){
-			$("#addDept").click(function(){
+			$("#addCourse").click(function(){
 				var cnt = 0;
 				var tat = $("td input").length;
 				$("td input").each(function(){if ($(this).val()!="")cnt++;});
@@ -40,29 +41,28 @@
 					return false;
 				}
 				alert("您已添加成功!")
+				/* setTimeout(function(){alert('您已添加成功!')},4000); */
 			})
 		})
 	</script>
 </head>
 <body>
 	<div class="container">
-		<h3>添加部门信息</h3>
-		<form action="addDept.do">
+		<h3>添加课程信息</h3>
+		<form action="addCourse.do">
 			<table class="table table-striped table-bordered table-hover" align="center" border="1" cellspacing="0">
 				<tr>
-					<td>部门名称：</td>
-					<td><input type="text" name="deptName"></td>
+					<td>课程名称：</td>
+					<td><input type="text" name="courseName"></td>
 				</tr>
 				<tr>
-					<td>部门地址：</td>
-					<td><input type="text" name="deptAddress"></td>
+					<td>课程状态：</td>
+					<td><input type="text" name="courseState"></td>
 				</tr>
-				
 			</table>
-			<input type="submit" value="添加" id="addDept" class="btn btn-primary"id="addDept">&nbsp;&nbsp;
-			<a class="btn btn-primary" id="backDeptInfoList">返回</a>
+			<input type="submit" value="添加" class="btn btn-primary"id="addCourse">&nbsp;&nbsp;
+			<a class="btn btn-primary" id="backCourseInfoList">返回</a>
 		</form>
 	</div>
-		
 </body>
 </html>

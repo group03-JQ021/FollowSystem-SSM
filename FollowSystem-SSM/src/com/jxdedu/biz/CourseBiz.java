@@ -1,15 +1,14 @@
-package com.jxdedu.dao;
+package com.jxdedu.biz;
 
 import java.util.List;
 
 import com.jxdedu.entity.Course;
-
 /**
- * 课程类dao层接口
+ * 
  * @author 孙加硕
- * @date 2018年6月25日
+ * @date 2018年7月1日
  */
-public interface CourseDao {
+public interface CourseBiz {
 	/**
 	 * 获取所有课程的记录数
 	 * @return 课程的记录数
@@ -37,7 +36,7 @@ public interface CourseDao {
 	 * @return 是否添加成功
 	 */
 	boolean addCourse(Course course);
-
+	
 	/**
 	 * 批量删除课程
 	 * @param arr 课程id的数组
@@ -46,32 +45,9 @@ public interface CourseDao {
 	boolean delCourse(String[] arr);
 	
 	/**
-	 * 
-	 * @param courseId
-	 * @return
-	 *//*
-	Course getCourseByCourseId(int courseId);*/
-
-	/**
 	 * 修改课程信息
 	 * @param course 课程对象
 	 * @return 是否删除成功
 	 */
 	boolean editCourse(Course course);
-
-	
-	/**
-	 * 模糊查询
-	 * @param className 输入查询的名称
-	 * @return 包含出入名称的课程数据集合
-	 *//*
-	List<Course> likeSearchCourse(String courseName);
-	*//**
-	 * 通过课程名称获取课程
-	 * @param className 课程名称
-	 * @return 课程对象
-	 *//*
-	Course getCourseByCourseName(String courseName);
-	*/
-
 }

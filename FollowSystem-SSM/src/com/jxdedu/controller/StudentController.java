@@ -74,6 +74,7 @@ public class StudentController {
 		model.addAttribute("nextPage", nextPage);
 		model.addAttribute("studentCurrentPage",studentCurrentPage);
 		model.addAttribute("list",list);
+		System.out.println(list);
 		return "studentInfo/studentInfoList";
 	}
 	

@@ -5,20 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%-- 引入 jQuery 和 Bootstrap --%>
+<jsp:include page="/WEB-INF/jsp/snippet/ref.jsp"></jsp:include>
+
 <title>修改学员信息</title>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	
-	 <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-	 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script
-		src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
-		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-		crossorigin="anonymous">
-	</script>
 	<style type="text/css">
 		div.container {
 			width: 600px;
@@ -39,8 +29,24 @@
 		
 		$(function(){
 			$("#save").click(function(){
-			alert("修改成功!")
+				var cnt = 0;
+				var tat = $("td input").length;
+				$("td input").each(function() {
+					if ($(this).val() != "")
+						cnt++;
+				});
+
+				if (cnt != tat) {
+					alert("填写完整后才可修改");
+					return false;
+				}
+				alert("您已修改成功!")
+			})
+			$("#back").click(function(){
+				location.href = "getStuByStuId.do?stuId=${stuId}";
+			})
 		})
+
 	</script>
 </head>
 <body>
@@ -50,7 +56,7 @@
 				<table class="table table-striped table-bordered table-hover mt" align="center" border="1" cellspacing="0">
 					<tr>
 						<td>学员编号：</td>
-						<td><input type="text" name="stuId" value="${student.stuId}"></td>
+						<td><input type="text" name="stuId" value="${student.stuId}" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
@@ -145,10 +151,8 @@
 					</tr>
 					
 				</table>
-				<!-- <a class="btn btn-primary" type="">保存</a>&nbsp;&nbsp; -->
-				<input type="submit" value="保存" class="btn btn-primary">&nbsp;&nbsp;
-				<a class="btn btn-info" href="studentInfo/studentDetailInfo">返回</a>
-						<!-- <a class="btn btn-primary" id="back">返回</a> -->
+				<input type="submit" value="保存" class="btn btn-primary" id="save">&nbsp;&nbsp;
+				<input type="button" value="返回" id="back" class="btn btn-info">
 			</form>
 		</div>
 </body>

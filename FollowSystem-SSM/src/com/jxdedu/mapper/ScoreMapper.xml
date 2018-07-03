@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxdedu.dao.ScoreDao">
+	<select id="getScoreRowNum" resultType="int">
+		select count(*) from score
+	</select>
+	<resultMap type="Score" id="subScore">
+		<id column="stuId" property="stuId"/>
+		<id column="courseId" property="courseId"/>
+		<result column="score" property="score"/>
+		<association property="student" javaType="Student">
+			<id column="stuId" property="stuId"/>
+			<result column="stuName" property="stuName"/>
+			<!-- <result column="sex" property="sex"/>
+			<result column="nation" property="nation"/>
+			<result column="birthday" property="birthday"/>
+			<result column="birthPlace" property="birthPlace"/>
+			<result column="marry" property="marry"/>
+			<result column="telephone" property="telephone"/>
+			<result column="idCard" property="idCard"/>
+			<result column="university" property="university"/>
+			<result column="major" property="major"/>
+			<result column="photo" property="photo"/>
+			<result column="note" property="note"/>
+			<result column="state" property="state"/>
+			<result column="classId" property="classId"/>
+			<result column="deptId" property="deptId"/> -->
+		</association>
+		<association property="course" javaType="Course">
+			<id column="courseId" property="courseId"/>
+			<result column="courseName" property="courseName"/>
+			<result column="courseState" property="courseState"/>
+		</association>
+	</resultMap>
+	<select id="getSubScore" resultType="Score">
+		
+	</select>
+	
+</mapper>

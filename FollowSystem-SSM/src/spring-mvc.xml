@@ -35,8 +35,8 @@
 			</list>
 		</property>
 	</bean>
-	<!-- 支持返回json -->
 	
+	<!-- 支持返回json -->
 	<!-- 视图定位 -->
 	<bean id="viewResolver"  
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
