@@ -158,7 +158,7 @@ public class DeptController {
 	}
 	
 	@RequestMapping("/delDept")
-	public String delDept(String deptIdArr, HttpSession session,Model model){
+	public String delDept(String deptIdArr, HttpSession session, Model model){
 		if(deptIdArr==null){
 			model.addAttribute("delMsg","您未选中要删除的信息!");
 		}
@@ -176,13 +176,12 @@ public class DeptController {
 	@RequestMapping("/editDept")
 	public String editDept(int deptId,Model model){
 	
-		
 		Dept dept = null;
 		dept = deptBiz.getDeptByDeptId(deptId);
 		model.addAttribute("dept",dept);
-		System.out.println(dept.getDeptId());
+		/*System.out.println(dept.getDeptId());
 		System.out.println(dept.getDeptName());
-		System.out.println(dept.getDeptAddress());
+		System.out.println(dept.getDeptAddress());*/
 		
 		
 		return "deptInfo/editDeptInfo";

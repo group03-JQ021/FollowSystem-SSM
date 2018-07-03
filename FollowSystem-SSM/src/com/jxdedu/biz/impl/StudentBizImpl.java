@@ -39,8 +39,10 @@ public class StudentBizImpl implements StudentBiz{
 
 	@Override
 	public boolean delStudents(String[] stuIdArr) {
-		int[] stuID = new int[stuIdArr.length];
-		for(int i = 0; i<stuID.length; i++) stuID[i] = Integer.parseInt(stuIdArr[i]);
+		/*int[] stuID = new int[stuIdArr.length];
+		for(int i = 0; i<stuID.length; i++) {
+			stuID[i] = Integer.parseInt(stuIdArr[i]);
+		}*/
 		return studentDao.delStudents(stuIdArr);
 	}
 
@@ -54,38 +56,5 @@ public class StudentBizImpl implements StudentBiz{
 		return studentDao.editStudent(student);
 	}
 
-	/*@Override
-	public List<Student> likeSearchStu(String stuName) {
-		return null;
-	}
-
-	@Override
-	public Student getStuByName(String stuName) {
-		return null;
-	}
-
-	@Override
-	public Student getStuByStuId(int stuId) {
-		return null;
-	}
-
-	@Override
-	public Student getAllStuInfo() {
-		return null;
-	}
-	@Override
-	public boolean addStudent(Student student) {
-		return false;
-	}
-
-	@Override
-	public boolean delStudent(String[] arr) {
-		return false;
-	}
-
-	@Override
-	public boolean editStudent(Student student) {
-		return false;
-	}*/
 
 }

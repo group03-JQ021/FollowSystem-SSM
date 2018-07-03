@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxdedu.dao.CourseDao">
+	<select id="getCourseRowNum" resultType="int">
+		select count(*)from course
+	</select>
+	<select id="getSubCourse" resultType="Course">
+		<![CDATA[
+		select * from (
+        	select rownum r,co.* from (
+            	select * from course order by courseId) co 
+       		where rownum <=#{1}) 
+		where r>=#{0}
+		]]>
+	</select>
+	
+	<select id="searchCourseByCourseId" resultType="Course">
+		select * from course where courseId=#{courseId}
+	</select>
+	
+	<insert id="addCourse" parameterType="Course">
+		insert into course(courseId,courseName,courseState)
+            values(seq_course.nextval,#{courseName},#{courseState})
+	</insert>
+	
+	<delete id="delCourse">
+		delete from course where courseId in(
+			<foreach collection="array" item="courseId" separator=",">
+				#{courseId}
+			</foreach>
+		)
+	</delete>
+	
+	<update id="editCourse" >
+		update course 
+		set courseName = #{courseName},courseState=#{courseState} 
+		where courseId = #{courseId} 
+	</update>
+</mapper>
