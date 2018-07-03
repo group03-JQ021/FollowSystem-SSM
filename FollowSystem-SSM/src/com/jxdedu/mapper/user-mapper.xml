@@ -12,24 +12,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  NOTE
  FLAG
  LOGINTIME
- DEPTNO 
+ DEPTNO
  -->
 <mapper namespace="com.jxdedu.dao.UserDao">
- 	
-	
+
+
 	<!--============= 分页查询相关方法 ====================-->
 	<!--  -->
 	<select id="getTotalCount" resultType="int"> select count(*) from users	</select>
 	<select id="getByRange" resultType="User">
 		with t1 as (select * from users order by userid), -- 第一步,按 userid 升序排序
 			 t2 as (select t1.*, rownum r				  -- 第二步,按上边界过滤(不包括上边界)
-					from t1			
+					from t1
 					where rownum &lt; #{upperBound})
-		select * 	
+		select *
 		from t2
-		where r &gt;= #{lowerBound}						  -- 最后一步,按下边界过滤(包括下边界)			
+		where r &gt;= #{lowerBound}						  -- 最后一步,按下边界过滤(包括下边界)
 	</select>
 	<!-- end/分页查询相关方法 -->
-	
-	
+
+	<!-- 按姓名模糊查询 -->
+	<select id="fuzzySearchByNameWithRange" resultType="User">
+		with t1 as (select *
+					from users
+					where userName like '%'||#{word}||'%'
+					order by userid),
+			 t2 as (select t1.*, rownum r
+					from t1
+					where rownum &lt; #{upperBound})
+		select *
+		from t2
+		where r &gt;= #{lowerBound}
+	</select>
+
+	<!-- 添加用户 -->
+	<insert id="addUser">
+		insert into users(userId,  userName,  pwd)
+		values(seq_users.nextval,  #{userName},  #{pwd})
+	</insert>
+
 </mapper>

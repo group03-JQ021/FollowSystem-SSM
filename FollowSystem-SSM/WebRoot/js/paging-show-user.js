@@ -10,21 +10,43 @@ $(function () {
     alert("显示用户编号为"+$(this).text() + "的用户详情(功能尚未实现)");
   });
 
-  // 添加用户
-  $("#addUser").click(function(){
-    alert("添加用户未实现");
-  });
+  // // 添加用户
+  // $("#addUser").click(function(){
+  //   alert("添加用户未实现");
+  // });
   // 删除用户
   $("#delUser").click(function(){
-    alert("确定删除吗?")
+    var delArr = new Array();
+    $("[name='userIds']:checked").each(function(){
+      delArr.push($(this).val());
+    });
+
+    if (delArr.length == 0){
+      alert("请先选中要删除的用户.");
+      return;
+    }
+
+    var flag = confirm("确定删除?");
+    if(flag){
+      var url = "doDelUser.do";
+      $.ajax({
+        "url":url,
+        "type":"POST",
+      })
+
+    }
+
   });
 
   // 多条件搜索
   $("#doSearch").click(function () {
     var url =  $(this).attr("url"); // 执行搜索的url
     var word = $("#searchInput").val(); // 搜索关键字
-    alert(url+":" + word);
-    location.href = url+"?"+"word="+word;
+    //alert(url+":" + word);
+    var href = url+"?"+"word="+ word  + '&currentPage=1';
+    //alert(href);
+    location.href = href;
+    return false;
     // $.ajax({
     //   "url":url,
     //   "type":"POST",

@@ -27,4 +27,12 @@ public interface UserBiz {
     /* end--分页查询相关功能 */
     
     public boolean checkUserName(String userName);
+    
+    public int getFuzzyCountByName(String word);
+    
+    public List<User> fuzzySearchByNameWithRange(String word, int lowerBound,int upperBound);
+    
+    public boolean addUser(User user);
+    
+    public User getUserByName(User user);
 }

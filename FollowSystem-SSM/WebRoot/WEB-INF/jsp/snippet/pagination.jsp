@@ -8,7 +8,7 @@
     <c:choose>
       <c:when test="${pagingStatus.currentPage!=1}">
         <li>
-          <a href="${url}?currentPage=${pagingStatus.currentPage - 1}&${query}" aria-label="Previous">
+          <a href="${url}?currentPage=${pagingStatus.currentPage - 1}${query}" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
@@ -26,7 +26,7 @@
       <c:choose>
         <c:when test="${i!=pagingStatus.currentPage}">
            <li>
-            <a href="${url}?currentPage=${i}&${query}" aria-label="Previous">${i}</a>
+            <a href="${url}?currentPage=${i}${query}" aria-label="Previous">${i}</a>
           </li>
         </c:when>
         <c:otherwise>
@@ -44,7 +44,7 @@
     <c:choose>
       <c:when test="${pagingStatus.currentPage != pagingStatus.pageCount}">
         <li>
-          <a href="${url}?currentPage=${pagingStatus.currentPage + 1}&${query}" aria-label="Previous">
+          <a href="${url}?currentPage=${pagingStatus.currentPage + 1}${query}" aria-label="Previous">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>

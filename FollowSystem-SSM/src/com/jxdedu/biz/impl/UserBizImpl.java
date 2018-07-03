@@ -61,5 +61,32 @@ public class UserBizImpl implements UserBiz {
         return (userName == null ? false : dao.countUserName(userName)>=1);
     }
 
+    
+    public int getFuzzyCountByName(String word){
+        return dao.getFuzzyCountByName(word);
+    }
+    @Override
+    public List<User> fuzzySearchByNameWithRange(String word, 
+            int lowerBound,int upperBound){
+        logger.debug("分页查询:区间[" + lowerBound + "," + upperBound + ")");
+        if (lowerBound >= upperBound){
+            logger.warn("检测到非法分页查询区间:[" + lowerBound + "," + upperBound + ")");
+        }
+        if (word == null) word = "";
+        
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("lowerBound", lowerBound+"");
+        map.put("upperBound", upperBound+"");
+        map.put("word", word);
+        return dao.fuzzySearchByNameWithRange(map);
+    }
+    
+    public boolean addUser(User user){
+        return dao.addUser(user);
+    }
+    
+    public User getUserByName(User user){
+        return dao.getUserByName(user);
+    }
 }
 

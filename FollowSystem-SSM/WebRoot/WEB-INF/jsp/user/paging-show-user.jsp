@@ -47,7 +47,8 @@
                 <li><a href="javascript:void(0)" url="fuzzySearchByEamail">按电子邮件(模糊)搜索</a></li>
               </ul>
               <!-- 增删操作 -->
-              <button class="btn btn-primary" title="添加新用户" id="addUser">添加</button>
+              <a href="toAddUser.do" class="btn btn-primary" title="添加新用户" id="addUser">添加</a>
+              <!-- <button href="toAddUser.do" class="btn btn-primary" title="添加新用户" id="addUser">添加</button> -->
               <button class="btn btn-danger" title="删除选中用户" id="delUser">删除</button>
             </div>
         </div>
